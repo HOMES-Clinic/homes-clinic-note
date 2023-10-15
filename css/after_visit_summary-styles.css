@@ -1,0 +1,190 @@
+body {
+    background-color: white;
+    height: 100vh;
+}
+
+.page {
+    padding: 10%;
+    padding-top: 5px;
+}
+
+.contents {
+    border: solid;
+    padding: 16px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 31px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+img.centered {
+    display: block;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 25px;
+    font-weight: normal;
+}
+
+textarea {
+    font-family: arial, sans-serif;
+    font-size: 12pt;
+    resize: none;
+    overflow: hidden;
+    white-space: normal;
+    padding: 8px;
+    width: 65em;
+    border: none;
+    outline: none;
+    height: 25vh;
+}
+
+.print-button {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #999;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.print-button:hover {
+    background-color: #777;
+}
+
+.add-referral-button{
+    font-size: 14px;
+}
+
+.add-medication-button {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: #999;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    float: left;
+}
+
+.remove-medication-button {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: #999;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    float: right;
+}
+
+.add-medication-button:hover,
+.remove-medication-button:hover {
+    background-color: #777;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+#medication-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#medication-table th,
+#medication-table td {
+    border: 1px solid #999;
+    padding: 8px;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.preventative-summary-heading {
+    clear: both;
+    margin-top: 20px;
+}
+
+.preventative-screening {
+    padding: 0;
+    margin-right: 10px;
+}
+
+.preventative-screening li {
+    margin-bottom: 10px;
+}
+
+
+.sub-screening {
+    list-style-type: none;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.sub-screening li {
+    margin-bottom: 5px;
+}
+
+#referral-list {
+    font-family: 'Times New Roman';
+    font-size: 1em;
+}
+
+#instructions {
+    font-family: 'Times New Roman';
+    font-size: 1em;
+    padding: 0px;
+}
+
+@media print {
+
+    .page {
+        overflow: visible;
+        page-break-before: avoid;
+        page-break-inside: avoid;
+        page-break-after: avoid;
+    }
+
+    .contents {
+        border: none;
+        padding: 0px;
+    }
+
+    .print-button {
+        display: none;
+    }
+
+    .add-medication-button {
+        display: none;
+    }
+
+    .remove-medication-button {
+        display: none;
+    }
+
+    .add-referral-button {
+        display: none;
+    }
+}

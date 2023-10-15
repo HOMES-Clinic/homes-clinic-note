@@ -1,0 +1,72 @@
+body {
+    background-color: white;
+    text-align: center;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 31px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 25px;
+    font-weight: normal;
+}
+
+.textarea-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+textarea {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14pt;
+    resize: vertical;
+    overflow: hidden;
+    white-space: normal;
+    padding: 8px;
+    width: 90%;
+    border: solid;
+    outline: none;
+    height: 100vh;
+    align-self: center;
+}
+
+.print-button {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #999;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.print-button:hover {
+    background-color: #777;
+}
+
+@media print {
+
+    .page {
+        overflow: visible;
+        page-break-before: avoid;
+        page-break-inside: avoid;
+        page-break-after: avoid;
+    }
+
+    .print-button {
+        display: none;
+    }
+
+    textarea {
+        border: none;
+        resize: none;
+    }
+}

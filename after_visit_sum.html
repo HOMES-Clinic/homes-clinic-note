@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>After Visit Summary</title>
+    <script src="js/after_visit_sum.js" defer></script>
+    <script src="jquery.min.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="css/after_visit_summary-styles.css">
+</head>
+
+<body>
+
+    <div class="page">
+        
+        <img class="centered" width="300" height="auto"
+            src="HOMES_logo.jpg" />
+        <br>
+        <h1 class="centered">After Visit Summary</h1>
+
+        <h2><u>Medication Summary</u></h2>
+        <div class="table-container">
+            <table id="medication-table">
+                <thead>
+                    <tr>
+                        <th>Medication</th>
+                        <th>Dose</th>
+                        <th>Frequency</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <button class="add-medication-button print-button" onclick="addMedicationRow()">Add Medication</button>
+            <button class="remove-medication-button print-button" onclick="removeMedicationRow()">Remove Medication</button>
+        </div>
+
+        <h2 class="preventative-summary-heading"><u>Preventative Health Summary</u></h2>
+        <div class="preventative-screening">
+            <ul style="list-style-type: none;">
+                <li><input type="checkbox"> Smoking cessation counseling provided</li>
+                <li><input type="checkbox"> Diabetes screening performed</li>
+                <li><input type="checkbox"> Sexual health screening performed</li>
+                <li>
+                    <input type="checkbox"> Due for colon cancer screening
+                    <ul class="sub-screening">
+                        <li><input type="checkbox"> Stool Card Provided.</li>
+                        <div style="margin-left:1.5em;">
+                            <li><strong>Instructions:</strong></li>
+                            <li>Follow directions on stool card</li>
+                            <li>Return to Cathedral Clinic or Caroline St. Clinic during the week.</li>
+                            <li>Results will be ready in 1-2 weeks.</li>
+                        </div>
+                    </ul>
+                </li>
+                <li>
+                    <input type="checkbox"> Women's health services (need referral)
+                    <ul class="sub-screening">
+                        <li><input type="checkbox"> Due for pap smear</li>
+                        <li><input type="checkbox"> Due for mammogram</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <h2><u>Referrals</u></h2>
+        <p>
+            You will be contacted during the week to schedule appointments with the following services.
+            Please reach out to Cathedral Clinic or Caroline St. Clinic with any questions.
+        </p>
+        <div>
+            <ul id="referral-list", style="list-style-type: none;">
+                <li><input type="checkbox"> Behavioral Health</li>
+                <li><input type="checkbox"> Mental Health</li>
+                <li><input type="checkbox"> Nutrition Services</li>
+                <li><input type="checkbox"> Women's Health Services</li>
+                <li><input type="checkbox"> Primary Care Services - Cathedral Clinic/Caroline St. Clinic</li>
+                <li id="otherReferral"><input type="checkbox"> Case Management</li>
+            </ul>
+            <button class="print-button add-referral-button" onclick="addReferral()">Add Referral</button>
+        </div>
+
+
+        <h2 style="margin-bottom: 5px;"><u>Extra Notes/Instructions:</u></h2>
+        <textarea id="instructions" name="instructions">Please click and write any extra instructions here.</textarea><br>
+        
+
+        <button class="print-button" onclick="printSummary()">Print</button>
+
+    </div>
+
+</body>
+
+</html>

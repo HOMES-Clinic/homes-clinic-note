@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Homes Clinic Note</title>
+    <style>
+        body {
+            background-color: white;
+            text-align: center
+        }
+
+        h1,
+        h2,
+        h3 {
+            background-color: lightgray;
+        }
+
+        textarea {
+            font-family: arial, sans-serif;
+            font-size: 12pt;
+            resize: none;
+            overflow: hidden;
+            white-space: normal;
+            padding: 8px;
+            width: 65em;
+        }
+
+        table {
+            text-align: center;
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            margin-left: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #000000;
+            text-align: center;
+            border-spacing: 0;
+            padding: 0px;
+        }
+
+        td textarea {
+            width: 62em;
+        }
+
+        #phsTable td textarea {
+            width: 50em;
+        }
+
+        #dTable td textarea {
+            width: 30em;
+        }
+
+        #sign {
+            text-align: left;
+        }
+
+        #dtable {
+            border: none;
+        }
+
+        #dtable rows,
+        #dtable td {
+            border: none;
+        }
+
+        #dtable textarea {
+            width: 15em;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+
+    <meta name="author" content="Benjamin Chao">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("textarea").each(function () {
+                this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+            }).on("input", function () {
+                this.style.height = "auto";
+                this.style.height = (this.scrollHeight) + "px";
+            });
+        });
+    </script>
+    <script>
+        function bmicalc() {
+            var weight = document.getElementById('Weight').value;
+            var height = document.getElementById('Height').value;
+            var calc = weight / height / height * 703;
+            document.getElementById('BMI').value = calc.toFixed(1);
+        };
+    </script>
+    <script>
+        function checkbox(checkboxId, textId) {
+            var checkBox = document.getElementById(checkboxId);
+            var text = document.getElementById(textId);
+            if (checkBox.checked == true) {
+                text.style.display = "block";
+            } else {
+                text.style.display = "none";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>
+            <left><a
+                    href="https://images.squarespace-cdn.com/content/v1/62950458ae30a3407806b9e6/06daa6f5-ae34-47be-aaac-bed3a60c7d73/homes+logo+w+hhh+optimized.jpg?format=1500w">
+                    <img width="406" height="225"
+                        src="https://images.squarespace-cdn.com/content/v1/62950458ae30a3407806b9e6/06daa6f5-ae34-47be-aaac-bed3a60c7d73/homes+logo+w+hhh+optimized.jpg?format=1500w" />
+                </a></left>
+            <br>
+            Clinic Note
+
+        </h1>
+        <h3>
+            Please use "N/A" in all empty text boxes.
+            <br>Do not leave any boxes blank
+            <br>If you opened this on google docs, close out and follow the instructions
+        </h3>
+    </header>
+
+    <label for="patientName">Patient Name</label>
+    <input style="font-size:16pt" type="text" id="patientName" placeholder="Last name, First name">
+
+    <label for="patientDob">DOB</label>
+    <input style="font-size:16pt" type="date" id="patientDOB" placeholder="DD-MM-YYYY">
+
+    <br><br>
+    <label for="patientGender">Gender</label>
+    <select id="patientGender" class="form-control">
+        <option selected>Choose...</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <label for="patientID">Patient ID</label>
+    <input type="text" id="patientID" placeholder="SSN or N/A" size="12">
+
+    <label for="DOS">Date of Service</label>
+    <input type="date" id="dos" name="dos" placeholder="DD-MM-YYYY">
+
+    <h4>
+            Masterword provides phone translation for HHH/HOMES at 1-866-716-4999. If PIN is requested, use 29841760.
+        </h4>
+
+    <h2>History of Present Illness</h2>
+
+    <p><label for="cc">Chief Concern</label></p>
+    <textarea id="CC" name="CC" placeholder="The patient's chief concern is" rows="1"></textarea>
+
+    <br>
+    <p><label for="HPI">HPI</label></p>
+    <textarea id="HPI" name="HPI" placeholder="HPI">
+Location
+Onset
+Character
+Alleviating/Aggravating
+Timing 
+Environmental
+Severity
+Associated Symptoms
+Greatest Concern</textarea>
+
+    <br>
+    <p><label for="meds">Medications</label></p>
+    <textarea id="meds" name="meds" placeholder="1. Drug, dose, intake type..." rows="1"></textarea>
+
+    <br>
+    <p><label for="allergies">Allergies</label></p>
+    <textarea id="all" name="all" placeholder="NKDA vs medication (reaction)" rows="1"></textarea>
+
+    <br>
+    <p><label for="PMH">PMH</label></p>
+    <textarea id="PMH" name="PMH"
+        placeholder="medical condition(s), diabetes, hypertension, past hospitalizations, etc." rows="1"></textarea>
+
+    <br>
+    <p><label for="PSH">PSH</label></p>
+    <textarea id="PSH" name="PSH" placeholder="1. Procedure (date)" rows="1"></textarea>
+
+    <br>
+    <p><label for="OB Hx">ObHx</label></p>
+    <textarea id="ObHx" name="ObHx" placeholder="N/A vs LMP, G#P####, etc." rows="1"></textarea>
+
+    <br>
+    <p><label for="Fam Hx">FH</label></p>
+    <textarea id="FH" name="Fam Hx" placeholder="Family member(s) w/ age if applicable: disease" rows="1"></textarea>
+
+
+    <h2>Preventive Health Screening Questions</h2>
+    <h3>SHx</h3>
+
+    <p><label for="General">General</label></p>
+    <textarea id="General" name="General" placeholder="General">Living Situation
+Financial Situation
+Insurance
+Intimate Partner Violence</textarea>
+    
+    <br><br>
+    <label for="smokeCheck">Smoking: Active smoker?</label>
+    <input type="checkbox" id="smokeCheck" onclick="checkbox('smokeCheck', 'smokeText')">
+    <label for="cessationBox">Cessation counseling provided?</label>
+    <input type="checkbox" id="cessationText">
+    <p id="smokeText" style="display:none"> #packs per day, length of smoking history. If interested in stopping,
+        counsel patient about cessation and refer to Texas Smoking Quitline: 1-877-937-7848 and PCP for smoking
+        cessation tools (gum, patches)</p>
+    <br>
+    <textarea id="Smoking" name="Smoking" rows="1">N/A</textarea>
+
+    <br><br>
+    <label for="hgb">Diabetes: date of last HgbA1c</label>
+    <input type="date" id="hgb" placeholder="mm/dd/yyyy" size="3">
+    <label for="diaCheck">Diabetes</label>
+    <input type="checkbox" id="diaCheck" onclick="checkbox('diaCheck', 'diaText')">
+    <p id="diaText" style="display:none"> Last A1c? Ophthalmology within past year? Foot exam within past year? If no
+        ophthalmology within past year or no diabetic foot exam within past year, exams performed if indicated?
+        Referrals made?</p>
+    <br>
+    <textarea id="Diabetes" name="Diabetes" rows="1">N/A</textarea>
+
+    <br><br>
+    <label for="gynCheck">Gyn: patient female?</label>
+    <input type="checkbox" id="gynCheck" onclick="checkbox('gynCheck', 'gynText')">
+    <p id="gynText" style="display:none"> last Pap smear? last mammogram? If patient is due for pap
+        smear/mammogram,patient referred to HHH? (21-29 yo: cytology every 3 yrs; 30-65yo: every 3 yrs with cytology or
+        very 5 years cytology+hrHPV testing)/mammogram (every 2 years in women 50-75) If due, document orders to be
+        placed.</p>
+    <br>
+    <textarea id="Gyn" name="Gyn" rows="1">N/A</textarea>
+
+    <br><br>
+    <label for="PHQ9">Mental Health: PHQ9 score</label>
+    <input type="number" id="PHQ9" placeholder="PHQ9 score" size="3">
+    <br><br>
+    <label for="mhCheck">PHQ9 form > 5?</label>
+    <input type="checkbox" id="mhCheck" onclick="checkbox('mhCheck', 'mhText')">
+    <p id="mhText" style="display:none"> Established care with psychiatrist or behavioral health? If not, interested in
+        referral to psychiatry or behavioral health?</p>
+    <br>
+    <textarea id="MH" name="MH" rows="1">N/A</textarea>
+
+    <br>
+    <p><label for="DAST">Substance Use: Yes responses on DAST</label></p>
+    <textarea id="DAST" name="DAST" rows="1" placeholder="Yes responses on DAST"></textarea>
+    <br><br>
+    <label for="Audit">Cumulative score on Audit</label>
+    <input type="number" id="Audit" placeholder="Cumulative score on Audit" size="3">
+    <br><br>
+    <label for="suCheck">Substance use DAST=yes or AUDIT>8?</label>
+    <input type="checkbox" id="suCheck" onclick="checkbox('suCheck', 'suText')">
+    <p id="suText" style="display:none"> Established care with psychiatrist or behavioral health? If not, interested in
+        referral to psychiatry or behavioral health?</p>
+    <br>
+    <textarea id="SU" name="SU" rows="1">N/A</textarea>
+
+    <br><br>
+    <label for="hivTest">Sexual Health: Date of last HIV test</label>
+    <input type="date" id="hivTest" placeholder="mm/dd/yyyy" size="3">
+    <br><br>
+    <label for="shCheck">Last test less than 1 year or recent high-risk sexual encounter after most recent test?</label>
+    <input type="checkbox" id="shCheck" onclick="checkbox('shCheck', 'shText')">
+    <p id="shText" style="display:none">Interested in HIV test? Given pamphlet? Counseled on safe sex practices?
+        Notified of condoms in care kit?</p>
+    <br>
+    <textarea id="SH" name="SH" rows="1">N/A</textarea>
+
+    <br><br>
+    <label for="ccsTest">Colon Cancer Screening: Date of last colonoscopy/stool test</label>
+    <input type="date" id="ccsTest" placeholder="mm/dd/yyyy" size="3">
+    <label for="prefScreen">Preferred Screening</label>
+    <select id="prefScreen" class="form-control">
+        <option selected>Choose...</option>
+        <option value="Colonoscopy">Colonoscopy</option>
+        <option value="Stool card">Stool card</option>
+    </select>
+    <br><br>
+    <label for="ccsCheck">Patient > 45 yo</label>
+    <input type="checkbox" id="ccsCheck" onclick="checkbox('ccsCheck', 'ccsText')">
+    <p id="ccsText" style="display:none">Were they given a stool card and instructed to collect a sample and return it
+        to Caroline/Cathedral clinic during the week? Or if interested in colonoscopy, document need to refer for
+        colonoscopy.</p>
+    <br>
+    <textarea id="SH" name="SH" rows="1">N/A</textarea>
+
+    <br>
+    <p><label for="Diet">Diet</label></p>
+    <textarea id="Diet" name="Diet" rows="1"></textarea>
+
+    <br>
+    <p><label for="Physical Activity">Physical Activity</label></p>
+    <textarea id="Physical Activity" name="Physical Activity" rows="1"></textarea>
+
+    <br>
+    <p><label for="Barriers">Barriers to access to food</label></p>
+    <textarea id="Barriers" name="Barriers" rows="1"></textarea>
+
+    <br>
+    <h3>ROS</h3>
+    <textarea id="ROS" name="ROS" placeholder="Gen, HEENT, Resp, CV, GI, GU, Neuro, MSK, Skin, Mental...etc">Gen
+HEENT
+Resp
+CV
+GI
+GU
+Neuro
+MSK
+Skin
+Mental</textarea>
+
+    <h2> Physical Exam</h2>
+    <h3> Vital Signs</h3>
+
+    <label for="Height">Height (in)</label>
+    <input style="font-size:12pt" type="text" id="Height" placeholder="in" onkeyup="bmicalc();" size="4">
+
+    <label for="Weight">Weight (lbs)</label>
+    <input style="font-size:12pt" type="text" id="Weight" placeholder="lbs" onkeyup="bmicalc();" size="4">
+
+    <label for="BMI">BMI</label>
+    <input style="font-size:12pt" type="text" id="BMI" readonly size="4">
+
+    <label for="BP">BP (mm Hg)</label>
+    <input style="font-size:12pt" type="text" id="BP" placeholder="120/80" size="7">
+
+    <br><br>
+    <label for="HR">HR (bpm)</label>
+    <input style="font-size:12pt" type="text" id="HR" placeholder="bpm" size="4">
+
+    <label for="Temp">Temperature (F)</label>
+    <input style="font-size:12pt" type="text" id="Temp" placeholder="F" size="4">
+
+    <label for="Pulse">Pulse (bpm)</label>
+    <input style="font-size:12pt" type="text" id="Pulse" placeholder="bpm" size="4">
+
+    <label for="RR">RR (breaths / min)</label>
+    <input style="font-size:12pt" type="text" id="RR" placeholder="RR" size="4">
+
+    <br><br>
+    <table>
+        <colgroup>
+            <col span="2">
+            <col width="40%">
+        </colgroup>
+        <tbody>
+            <tr>
+                <th>System</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>General</td>
+                <td>
+                    <label for="General"> </label>
+                    <textarea id="general" name="general"
+                        placeholder="AAOx4, NAD, follows commands, nausea, chills">AAOx4, NAD, follows commands, nausea, chills</textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>HEENT</td>
+                <td>
+                    <label for="HEENT"> </label>
+                    <textarea id="HEENT" name="HEENT"
+                        placeholder="Normocephalic. Conjunctivae/corneas/sclerae clear. Extraocular movements are intact. Pupils are equal and reactive to light. Lips, mucosa, and tongue normal. Teeth and gums normal. Oropharynx normal. Neck supple, no adenopathy; no thyromegally or masses.">Normocephalic. Conjunctivae/corneas/sclerae clear. Extraocular movements are intact. Pupils are equal and reactive to light. Lips, mucosa, and tongue normal. Teeth and gums normal. Oropharynx normal. Neck supple, no adenopathy; no thyromegally or masses. </textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>CV</td>
+                <td>
+                    <label for="CV"> </label>
+                    <textarea id="CV" name="CV"
+                        placeholder="RRR. Normal S1 and S2 with no m/r/g. No JVD. Cap refill &lt;2 sec. No clubbing, cyanosis, or edema. 2+ palpable pulses in all extremities.">RRR. Normal S1 and S2 with no m/r/g. No JVD. Cap refill &lt;2 sec. No clubbing, cyanosis, or edema. 2+ palpable pulses in all extremities </textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Resp</td>
+                <td>
+                    <label for="Resp"> </label>
+                    <textarea id="Resp" name="Resp"
+                        placeholder="LCTAB with no wheezing, rales, or rhonchi">LCTAB with no wheezing, rales, or rhonchi </textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Abd</td>
+                <td>
+                    <label for="Abd"> </label>
+                    <textarea id="Abd" name="Abd"
+                        placeholder="Abdomen soft, ND, NTTP. Normoactive BS. No masses, organomegaly.">Abdomen soft, ND, NTTP. Normoactive BS. No masses, organomegaly </textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Back </td>
+                <td>
+                    <label for="Back"> </label>
+                    <textarea id="Back" name="Back"
+                        placeholder="No pain to palpation, No costovertebral tenderness.">No pain to palpation, No costovertebral tenderness </textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>GU</td>
+                <td>
+                    <label for="GU"> </label>
+                    <textarea id="GU" name="GU" placeholder="deferred"></textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>MSK</td>
+                <td>
+                    <label for="Msk"> </label>
+                    <textarea id="MSK" name="MSK"
+                        placeholder="5/5 strength. Normal ROM. No swollen or erythematous joints.">5/5 strength. Normal ROM. No swollen or erythematous joints.</textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Neuro</td>
+                <td>
+                    <label for="Neuro"> </label>
+                    <textarea id="Neuro" name="Neuro"
+                        placeholder="Alert and Oriented x3. CN 2-12 grossly intact. Sensation intact to light touch. Normal gait, normal coordination, good tone.">Alert and Oriented x4. CN 2-12 grossly intact. Sensation intact to light touch. Normal gait, normal coordination, good tone.</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Mental</td>
+                <td>
+                    <label for="Mental"> </label>
+                    <textarea id="Mental" name="Mental"
+                        placeholder="Normal mood, normal affect, normal behavior.  Fair judgement. Normal thought content. Judgment and insight intact. No depression, anxiety, or agitation.">Normal mood, normal affect, normal behavior.  Fair judgement. Normal thought content. Judgment and insight intact. No depression, anxiety, or agitation.</textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Other</td>
+                <td>
+                    <label for="Other"> </label>
+                    <textarea id="Other" name="Other" placeholder="Skin or anything else"></textarea>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Labs and Imaging</h3>
+    <textarea id="Labs" name="Labs" placeholder="A1C, O2 sat, etc">A1C, O2 sat, etc</textarea>
+
+    <h2>Assessment and Plan</h2>
+
+    <p><label for="Assess">Assessment</label></p>
+    <textarea id="Assess" name="Assess" placeholder="Assessment"></textarea>
+
+    <br>
+    <p><label for="Plan">Plan</label></p>
+    <textarea id="Plan" name="Plan" placeholder="Plan" style="width:1000px"></textarea>
+
+
+    <br><br>
+    <table id="phsTable">
+        <tbody>
+            <tr>
+                <th>Preventative Health Screen</th>
+                <th>Plan</th>
+            </tr>
+            <tr>
+                <td>Smoking</td>
+                <td>
+                    <label for="Smoking"> </label>
+                    <textarea id="Smoking" name="Smoking"
+                        placeholder="If active smoke, cessation counseling provided?">If active smoke, cessation counseling provided?></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Diabetes</td>
+                <td>
+                    <label for="Diabetes"> </label>
+                    <textarea id="Diabetes" name="Diabetes"
+                        placeholder="If patient has diabetes and last HgbA1c was >1 year ago, POC HgbA1c performed?">If patient has diabetes and last HgbA1c was >1 year ago, POC HgbA1c performed?</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Gyn</td>
+                <td>
+                    <label for="Gyn"> </label>
+                    <textarea id="Gyn" name="Gyn"
+                        placeholder="A If patient is due for pap smear/mammogram, patient referred to HHH? (21-29yo: cytology every 3 yrs; 30-65yo: every 3 yrs with cytology or every 5 years cytology+hrHPV testing) / mammogram (every 2 years in women 50-75)">If patient is due for pap smear/mammogram, patient referred to HHH? (21-29yo: cytology every 3 yrs; 30-65yo: every 3 yrs with cytology or every 5 years cytology+hrHPV testing) / mammogram (every 2 years in women 50-75)</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Mental Health</td>
+                <td>
+                    <label for="Mental health"> </label>
+                    <textarea id="Mental Health" name="Mental Health"
+                        placeholder="If PHQ9 score >5, patient referred to psych?">If PHQ9 score >5, patient referred to psych?.</textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Substance Use</td>
+                <td>
+                    <label for="Substance Use"> </label>
+                    <textarea id="Substance Use" name="Substance Use"
+                        placeholder="Yes responses on DAST or AUDIT >8, patient referred to psych/behavioral health?">Yes responses on DAST or AUDIT >8, patient referred to psych/behavioral health?</textarea>
+                </td>
+            <tr>
+                <td>Sexual Health</td>
+                <td>
+                    <label for="Sexual health"> </label>
+                    <textarea id="Sexual Health" name="Sexual Health"
+                        placeholder="If last HIV test >1 year ago, POC HIV test perform?">If last HIV test >1 year ago, POC HIV test perform?</textarea>
+                </td>
+            <tr>
+                <td>Colon Cancer</td>
+                <td>
+                    <label for="CC screening"> </label>
+                    <textarea id="CC Screening" name="CC Screening"
+                        placeholder="If patient >45 yo, were they given a stool card and instructed to collect a sample and return it to Caroline/Cathedral clinic during the week?">If patient >45 yo, were they given a stool card and instructed to collect a sample and return it to Caroline/Cathedral clinic during the week?</textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><label for="Orders">Orders and referrals to be placed</label></p>
+    <textarea id="Orders" name="Orders" rows="1"></textarea>
+
+    <h3>Medications Administered</h3>
+    <table id="dtable">
+        <tr>
+            <th>Diagnosis</th>
+            <th>Drug</th>
+            <th>Dose</th>
+            <th>Quantity</th>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" id="addRow" value="Add Row">
+            </td>
+            <script>
+                document.getElementById("addRow").onclick = function () {
+                    var cell = document.getElementById("dtable");
+                    var newrow = document.createElement("tr");
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');
+                    var td3 = document.createElement('td');
+                    var td4 = document.createElement('td');
+                    var text1 = document.createElement('textarea');
+                    var text2 = document.createElement('textarea');
+                    var text3 = document.createElement('textarea');
+                    var text4 = document.createElement('textarea');
+                    td1.appendChild(text1);
+                    td2.appendChild(text2);
+                    td3.appendChild(text3);
+                    td4.appendChild(text4);
+                    newrow.appendChild(td1);
+                    newrow.appendChild(td2);
+                    newrow.appendChild(td3);
+                    newrow.appendChild(td4);
+                    dtable.appendChild(newrow);
+                }
+            </script>
+        </tr>
+        <tr id="inputrow">
+            <td>
+                <textarea rows="1"></textarea>
+            </td>
+            <td>
+                <textarea rows="1"></textarea>
+            </td>
+            <td>
+                <textarea rows="1"></textarea>
+            </td>
+            <td>
+                <textarea rows="1"></textarea>
+            </td>
+        </tr>
+    </table>
+
+    <br> <br>
+    <p id="sign">Provider (Print): _____________________________
+        Sign:__________________________________<br><br><br><br>Clinical Student (Print): _____________________________
+        Sign:__________________________________
+    </p>
+</body>
+
+</html>

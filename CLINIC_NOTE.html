@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HOMES Clinic</title>
+  
+  <script src="js/script.js" defer></script>
+  <script src="jquery.min.js" defer></script>
+  <script src="listbox/listbox.js" defer></script>
+  <script src="listbox/listbox-scrollable.js" defer></script>
+  <script src="listbox/utils.js"></script>
+  <script src="js/medication-script.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/medication-styles.css">
+  <link rel="stylesheet" type="text/css" href="print-styles.css" media="print">
+  <link rel="stylesheet" type="text/css" href="listbox\listbox.css">
+</head>
+
+<body>
+
+  <h1>HOMES Clinic</h1>
+
+  <!-- TAB NAVIGATION -->
+  <div class="tab-container">
+    <img src="HOMES_logo.jpg" alt="HOMES Logo" class="logo">
+    <button class="tab-button" onclick="openTab('Overview')">Overview</button>
+    <button class="tab-button" onclick="openTab('Triage')">Triage</button>
+    <button class="tab-button" onclick="openTab('Forms')">Forms</button>
+    <button class="tab-button" onclick="openTab('Encounter')">Encounter</button>
+    <button class="tab-button" onclick="openTab('PrevHealth')">Preventative Health</button>
+    <button class="tab-button" onclick="openTab('Medications')">Medications</button>
+    <button class="tab-button" onclick="openTab('Referrals')">Referrals</button>
+    <button class="tab-button" onclick="openTab('AfterVisitSummary')">After Visit Summary</button>
+    <button class="tab-button" onclick="openTab('ED_Dir')">ED Directions</button>
+    <button class="tab-button" onclick="openTab('PtSum')">Patient Summary</button>
+    <button class="tab-button" onclick="openTab('GenNote')" style="margin-right:22px;">Generate Note</button>  
+  </div>
+
+  <!-- OVERVIEW TAB -->
+  <div class="tab-content" id="Overview">
+    <h2>Overview</h2>
+    <p>
+      Insert Overview of HOMES Here
+    </p>
+  </div>
+
+  <!-- TRIAGE TAB -->
+  <div class="tab-content" id="Triage">
+    <h2>Triage</h2>
+    <p>
+      Here volunteers will talk to patients and try to capture what their chief complaint is and why they want to be
+      seen at HOMES clinic today. They will rank patients based on the acuity of their medical complaint and based on
+      what we can do at HOMES clinic. They will then select the top 2 patients as patients their team will see.
+    </p>
+  </div>
+
+  <!-- FORMS TAB -->
+  <div class="tab-content" id="Forms">
+    <h2>Forms</h2>
+    <p>
+      These include consent forms that the patients need to fill out before they can be seen by the volunteers at
+      HOMES.
+    </p>
+  </div>
+
+  <!-- ENCOUNTER TAB -->
+  <div class="tab-content" id="Encounter">
+    <h2>Encounter</h2>
+    <p>
+      This has various subtabs within it based on medical history and physical templates. There are also questionnaires
+      like the DAST, PHQ-9, etc. (things you would be concerned for in a homeless population). There are automatic
+      calculators for things like the ASCVD Score.
+    </p>
+    <div id="encounter-section">
+      <h3>Select Type of Encounter</h3>
+      <input type="radio" id="medication-refill" name="encounter-type" value="Medication Refill">
+      <label for="medication-refill">Medication Refill</label><br>
+      <input type="radio" id="hypertension" name="encounter-type" value="Hypertension">
+      <label for="hypertension">Hypertension</label><br>
+      <input type="radio" id="basic-visit" name="encounter-type" value="Basic Visit">
+      <label for="basic-visit">Basic Visit</label><br>
+    </div>
+    <button onclick="saveTime()">Save Time</button>
+    <span id="TimeButton"></span>
+  </div>
+
+  <!-- PREVENTATIVE HEALTH TAB -->
+  <div class="tab-content" id="PrevHealth">
+    <h2>Preventative Health</h2>
+    <p>
+      Include information about Preventative Health here...
+    </p>
+  </div>
+
+  <!-- MEDICATIONS TAB -->
+  <div class="tab-content" id="Medications">
+    <h2>Medications</h2>
+    <p>
+      Users will select the medications to dispense here.
+    </p>
+    <div class="medication-container">
+      <div class="medication-box">
+        <h3>Formulary</h3>
+        <div class="listbox-area">
+          <ul id="formularyList" tabindex="0" role="listbox" aria-labelledby="formularyLabel">
+            <li id="ss_elem_Np" role="option">Aspirin</li>
+            <li id="ss_elem_Np" role="option">Lisinopril</li>
+            <li id="ss_elem_Np" role="option">Atorvastatin</li>
+          </ul>
+        </div>
+      </div>
+      <div class="medication-box">
+        <h3>Prescribed Medications</h3>
+        <div class="listbox-area">
+          <ul id="prescribedList" tabindex="0" role="listbox" aria-labelledby="prescribedLabel"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="medication-buttons">
+      <button onclick="addMedication()">Add Medication</button>
+      <button onclick="removeMedication()">Remove Medication</button>
+    </div>
+  </div>
+
+
+
+  <!-- REFERRAL TAB -->
+  <div class="tab-content" id="Referrals" style="margin-top:10px; padding-top:10px">
+    <iframe id="iframes" src="referral.html"></iframe>
+  </div>
+
+  <!-- AFTER VISIT SUMMARY TAB -->
+  <div class="tab-content" id="AfterVisitSummary" style="margin-top:10px; padding-top:10px">
+      <iframe id="iframes" src="after_visit_sum.html"></iframe>
+  </div>
+
+  <!-- ED DIRECTIONS TAB -->
+  <div class="tab-content" id="ED_Dir">
+    <h2>ED Directions</h2>
+    <div class="directions-options">
+      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_ben_taub.pdf')">Directions to Ben Taub ER</button>
+      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_caroline_clinic_transit.pdf')">Directions to Caroline Street Clinic (transit)</button>
+      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_caroline_clinic_walking.pdf')">Directions to Caroline Street Clinic (walking)</button>
+      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_memorial_hermann.pdf')">Directions to Memorial Hermann ER</button>
+    </div>
+    <iframe id="pdfFrame" width="90%" height="90%" style="display: none;"></iframe>
+  </div>
+
+  <!-- PATIENT SUMMARY TAB -->
+  <div class="tab-content" id="PtSum">
+    <h2>Patient Summary</h2>
+    <p>
+      A summary of the patient will be viewable here.
+    </p>
+  </div>
+
+  <!-- GENERATE NOTE TAB -->
+  <div class="tab-content" id="GenNote">
+    <h2>Generated Note</h2>
+    <p>
+      This tab compiles all the information from the other four tabs into a single tab that autofills as you complete
+      the other tabs. At the bottom of the page is a 'PRINT' button that allows you to print the entire tab at once.
+    </p>
+  </div>
+
+</body>
+
+</html>

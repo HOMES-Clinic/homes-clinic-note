@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Homes Clinic Note</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous">
+    </script>
+    <script src="js/referral-script.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/referral-styles.css">
+
+</head>
+
+<body class="page">
+    <header>
+
+        <img width="300" height="auto"
+            src="HOMES_logo.jpg" />
+        <br>
+        <h1>Referral Note</h1>
+        <h2> </h2>
+
+        <div class="textarea-container">
+            <textarea id="referral" name="referral">
+To whom it may concern,            
+
+PT Name (DOB) is a [age] fe/male with PMH significant for ****, presenting with ***. On history and physical, ****
+
+Management at HOMES Clinic today include:
+[meds, imaging, testing]
+
+We are referring the patient to higher level care and recommend ****
+
+Thank you for your care.
+
+Sincerely,
+
+______________________________
+Dr. [****]
+HOMES Clinic
+            </textarea>
+        </div>
+<button class="print-button" onclick="printReferral()">Print</button>
+</body>
+
+</html>
