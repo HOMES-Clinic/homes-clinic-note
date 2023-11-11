@@ -60,6 +60,6 @@ function saveSelection() {
   // Display the selected medications in a new window or alert
   updatePrescribedList(selectedValues);
 
-  window.myApp.sharedData.dataArray.length = 0;
-  window.myApp.sharedData.dataArray.push(selectedValues);
+  window.myApp.sharedData.medications.length = 0;
+  window.myApp.sharedData.medications.push(selectedValues);
 }
