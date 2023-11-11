@@ -1,50 +1,26 @@
-// JavaScript code for managing medications
-var formularyList = [];
-var prescribedList = [];
+let MedicationDict = {
+  'Aspirin': 'PG Inhibitor',
+  'Lisinopril': 'ACE Inhibitor',
+  'Metoprolol': 'Beta Blocker'
+};
 
-// Function to initialize the formulary list
-function initializeFormulary() {
-  var formularyItems = document.getElementById("formularyList").getElementsByTagName("li");
-  for (var i = 0; i < formularyItems.length; i++) {
-    formularyList.push(formularyItems[i].innerText);
-  }
-}
-
-// Function to add a medication to the prescribed list
-function addMedication() {
-  var selectedMedication = document.querySelector("#formularyList li.selected");
-  if (selectedMedication) {
-    var medicationName = selectedMedication.innerText;
-    if (!prescribedList.includes(medicationName)) {
-      prescribedList.push(medicationName);
-      updatePrescribedList();
-    }
-  }
-}
-
-// Function to remove a medication from the prescribed list
-function removeMedication() {
-  var selectedMedication = document.querySelector("#prescribedList li.selected");
-  if (selectedMedication) {
-    var medicationName = selectedMedication.innerText;
-    var index = prescribedList.indexOf(medicationName);
-    if (index !== -1) {
-      prescribedList.splice(index, 1);
-      updatePrescribedList();
-    }
-  }
-}
+let MedicationMap = new Map(Object.entries(MedicationDict));
 
 // Function to update the prescribed list in the UI
-function updatePrescribedList() {
+function updatePrescribedList(selectedValues) {
   var prescribedListElement = document.getElementById("prescribedList");
   prescribedListElement.innerHTML = "";
-  prescribedList.forEach(function (medication) {
+  selectedValues.forEach(function (medication) {
     var listItem = document.createElement("li");
     listItem.innerText = medication;
     listItem.addEventListener("click", toggleMedicationSelection);
     prescribedListElement.appendChild(listItem);
   });
+}
+
+function updateDrugInformation(selectedDrug) {
+  var drugInformationTextbox = document.getElementById("medicationInfo");
+  drugInformationTextbox.value = MedicationMap.get(selectedDrug);
 }
 
 // Function to select/unselect a medication in the formulary list
@@ -59,9 +35,31 @@ function toggleMedicationSelection(event) {
 
 // Event listener for medication selection in the formulary list
 document.addEventListener("DOMContentLoaded", function () {
-  initializeFormulary();
-  var formularyListItems = document.querySelectorAll("#formularyList li");
-  formularyListItems.forEach(function (item) {
-    item.addEventListener("click", toggleMedicationSelection);
-  });
+  const medications = Object.keys(MedicationDict);
+  const medicationList = document.getElementById('medicationList');
+  medications.forEach((medication, index) => {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `<span class="medication" onclick="toggleSelection(${index})">${medication}</span>`;
+    medicationList.appendChild(listItem);
 });
+});
+
+function toggleSelection(index) {
+  const medicationElement = document.querySelectorAll('.medication')[index];
+  medicationElement.classList.toggle('bold');
+  updateDrugInformation(medicationElement.textContent);
+}
+
+function saveSelection() {
+  // Get all selected medications
+  const selectedMedications = document.querySelectorAll('.bold');
+
+  // Create a list of selected medication values
+  const selectedValues = Array.from(selectedMedications).map(medication => medication.innerText);
+
+  // Display the selected medications in a new window or alert
+  updatePrescribedList(selectedValues);
+
+  window.myApp.sharedData.dataArray.length = 0;
+  window.myApp.sharedData.dataArray.push(selectedValues);
+}
