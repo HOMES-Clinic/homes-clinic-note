@@ -10,11 +10,14 @@
   <script src="listbox/listbox-scrollable.js" defer></script>
   <script src="listbox/utils.js"></script>
   <script src="js/medication-script.js"></script>
+  <script src="js/triage.js"></script>
   <script src="js/global-vars.js"></script>
+
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <link rel="stylesheet" type="text/css" href="css/medication-styles.css">
   <link rel="stylesheet" type="text/css" href="print-styles.css" media="print">
   <link rel="stylesheet" type="text/css" href="listbox\listbox.css">
+  <link rel="stylesheet" type="text/css" href="css/triage.css">
 </head>
 
 <body>
@@ -45,15 +48,202 @@
     </p>
   </div>
 
+
+
   <!-- TRIAGE TAB -->
-  <div class="tab-content" id="Triage">
-    <h2>Triage</h2>
-    <p>
-      Here volunteers will talk to patients and try to capture what their chief complaint is and why they want to be
-      seen at HOMES clinic today. They will rank patients based on the acuity of their medical complaint and based on
-      what we can do at HOMES clinic. They will then select the top 2 patients as patients their team will see.
-    </p>
+  <div class="tab-content triage-tab" id="Triage">
+
+    <!-- Title -->
+    <h2 class="triage-title">Triage</h2>
+
+    <!-- Buttons and Dropdown Content -->
+    <button class="collapsible-button" onclick="collapseClick(this)">Instructions</button>
+    <div class="collapsible-content">
+      <ol class="instructions">
+        <li>Stop all movement of students through the back door. <span class="bold-text">All students need to be going through the front door/breezeway to enter and exit the Beacon</span> (getting lunch, going to speak to laundry staff, etc).</li>
+        <ul>
+          <li>Patients should always be escorted into the clinic waiting room through the clinic front door.</li>
+          <li>Patients should return to the Beacon during operating hours through the front glass double door entrance.</li>
+        </ul>
+        <li>All HOMES Clinic volunteers should have another <span class="bold-text">volunteer buddy</span> for any activity in which they interact with patients or have the potential to interact with Beacon clients.</li>
+        <li>If HOMES Clinic volunteers find themselves in an uncomfortable or unsafe situation with a patient or another person (the person is yelling, making derogatory or sexually suggestive comments, threatening physical violence, etc), <span class="bold-text underline-text">volunteers should remove themselves from the situation and do the following: Volunteers should immediately alert the in-person physician or pharmacist attending to help de-escalate and manage unsafe situations.</span></li>
+        <li>We will set up an <span class="bold-text highlight-text">MIT 2 “lifeguard”</span> who stands by the clinical students triaging who’s entire purpose is to <span class="bold-text">monitor the preclinical and clinical students and can go get assistance if needed.</span></li>
+        <li><span class="bold-text">The Health Advocates will now perform their role during triage.</span> As the pre-clinical students walk around the tables, they will direct people with social concerns towards the health advocates, who will set up their own table next to the clinical student’s triage station. After triage, the health advocates can remain at their table and continue talking to any patients if necessary.</li>
+        <li>If an incident occurs, students need to <span class="bold-text">alert HOMES Clinic Faculty Advisors Dr. Clark and Dr. Wallace</span> as soon as it is safe to do so.</li>
+        <li><span class="bold-text highlight-text">If there are ever any incidents during your shift as a Manager/MIT, especially concerning safety, please contact one of the AD Managers (Aditya/Panos) and let us know! Even if the incidents were resolved or were not associated with any consequences, we would like you to let us know.</span></li>
+      </ol>
+    </div>
+
+
+    <button class="collapsible-button" onclick="collapseClick(this)">Beacon Orientation</button>
+    <div class="collapsible-content">
+      <img class="beacon-orientation" src="img/Beacon Diagram.svg" alt="Beacon Orientation">
+    </div>
+
+
+    <button class="collapsible-button" onclick="collapseClick(this)">Patient Priority</button>
+    <div class="collapsible-content">
+      <div class="priority-container">
+
+        <div class="category-container">
+          <div class="priority-ranks level-1">Level 1</div>
+          <p class="category-description">The patient is unresponsive or unconscious, suffering from life-threatening conditions, or has suicidal ideation with intent.</p>
+          <p class="bold-text category-to-do">Call 911</p>
+        </div>
+
+        <div class="category-container">
+          <div class="priority-ranks level-2">Level 2</div>
+          <p class="category-description">The patient shows signs of distress and is experiencing a condition that can become life-threatening. Patient needs to be reevaluated at a hospital and needs continuous monitoring.</p>
+          <p class="bold-text category-to-do">Instructions to Ben Taub</p>
+        </div>
+
+        <div class="category-container">
+          <div class="priority-ranks level-3">Level 3</div>
+          <p class="category-description">The patient is stable, but requires multiple types of resources / medications to be treated.</p>
+          <p class="bold-text category-to-do">HOMES Possible + Instructions to Ben Taub</p>
+        </div>
+
+        <div class="category-container">
+          <div class="priority-ranks level-4">Level 4</div>
+          <p class="category-description">The patient is stable, but has treatable injuries or medication refills that need medical attention.</p>
+          <p class="bold-text category-to-do">HOMES Possible</p>
+        </div>
+
+        <div class="category-container">
+          <div class="priority-ranks level-5">Level 5</div>
+          <p class="category-description">The patient has non-threatening symptoms, is in stable condition, or has an appointment scheduled in the future.</p>
+          <p class="bold-text category-to-do">Pass / Observe</p>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Triage Table -->
+    <table class="triage-table">
+      <tr>
+          <td class="table-header column-1">Triage Rank</td>
+          <td class="table-header column-2">Location</td>
+          <td class="table-header column-3">Name</td>
+          <td class="table-header column-4">DOB</td>
+          <td class="table-header column-5">Chief Concern</td>
+          <td class="table-header column-6">Temp</td>
+          <td class="table-header column-7">New to HHH or Harris Health?</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+      <tr>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+          <td>text</td>
+      </tr>
+  </table>
+
+
   </div>
+
+
 
   <!-- FORMS TAB -->
   <div class="tab-content" id="Forms">

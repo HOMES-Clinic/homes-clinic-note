@@ -1,0 +1,173 @@
+/* Triage Styling */
+
+
+
+/* General Tab Settings */
+
+.triage-tab * {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.triage-tab {
+  max-width: 1500px;
+}
+
+
+
+/* Button and Collapsible Content Styling */
+
+.triage-title {
+  margin-bottom: 14px;
+}
+
+.collapsible-button {
+  text-align: left;
+  color: white;
+  font-size: 18px;
+  background-color: rgb(37, 37, 37);
+  width: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 14px;
+  margin-bottom: 0;
+}
+
+.active, .collapsible-button:hover {
+  background-color: rgb(192, 40, 54);
+  transition: background-color 0.2s;
+}
+
+.collapsible-button:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.collapsible-content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: rgb(230, 230, 230);
+  margin-bottom: 12px;
+}
+
+
+
+/* Triage Instructions Collapsible */ 
+
+.instructions {
+  padding: 10px 14px;
+}
+
+.instructions li:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.instructions > ul > li {
+  margin-bottom: 8px;
+  margin-left: 20px;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.underline-text {
+  text-decoration: underline;
+}
+
+.highlight-text {
+  background-color: yellow;
+}
+
+
+
+/* Beacon Orientation Collapsible */
+
+.beacon-orientation {
+  padding: 20px 10% 20px 7%;
+}
+
+
+
+/* Patient Priority Collapsible */
+
+.priority-container {
+  display: flex;
+  flex-direction: row;
+  margin: 12px 0;
+}
+
+.category-container {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.priority-ranks {
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  border-radius: 50%;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.level-1 {
+  background-color: rgb(192, 40, 54);
+}
+
+.level-2 {
+  background-color: rgb(231, 121, 47);
+}
+
+.level-3 {
+  background-color: rgb(193, 212, 21);
+}
+
+.level-4 {
+  background-color: rgb(12, 179, 87);
+}
+
+.level-5 {
+  background-color: rgb(40, 63, 192);
+}
+
+.category-to-do {
+  margin-top: 8px;
+}
+
+
+
+/* Triage Table Styling */
+
+.triage-table {
+  margin-top: 20px;
+}
+
+.triage-table tr td {
+  border: 1px solid black;
+}
+
+.table-header {
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgb(192, 40, 54);
+  color: white;
+}

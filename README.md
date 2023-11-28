@@ -6,4 +6,4 @@ Contributers:
 
     Akshat Kumar (UTH) - conception, layouts, ED directions, Referrals, AVS
     Ishav Desai (UTH) - Medications
-    Daniel Brock (BCM)
+    Daniel Brock (BCM) - Overview, traige, and help with encounter
