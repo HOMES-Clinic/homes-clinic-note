@@ -10,6 +10,7 @@
   <script src="listbox/listbox-scrollable.js" defer></script>
   <script src="listbox/utils.js"></script>
   <script src="js/medication-script.js"></script>
+  <script src="js/global-vars.js"></script>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <link rel="stylesheet" type="text/css" href="css/medication-styles.css">
   <link rel="stylesheet" type="text/css" href="print-styles.css" media="print">
@@ -104,14 +105,39 @@
     <div class="medication-container">
       <div class="medication-box">
         <h3>Formulary</h3>
-        <div class="listbox-area">
-          <ul id="formularyList" tabindex="0" role="listbox" aria-labelledby="formularyLabel">
-            <li id="ss_elem_Np" role="option">Aspirin</li>
-            <li id="ss_elem_Np" role="option">Lisinopril</li>
-            <li id="ss_elem_Np" role="option">Atorvastatin</li>
-          </ul>
-        </div>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medications Search</title>
+    <style>
+      #textContainer {
+          margin-top: 20px;
+      }
+
+      .hidden {
+          display: none;
+      }
+  </style>
+  <body>
+    <input type="text" id="medicationSearchBar" placeholder="Search Medications">
+    <script>searchFunctionality()</script>
+  </body>
+        <style>
+          .selectable-list {
+              list-style-type: none;
+              padding: 0;
+          }
+  
+          .bold {
+              font-weight: bold;
+          }
+      </style>
+          <ol id="medicationList" class="selectable-list"></ol>
       </div>
+      
+      <div class="medication-box">
+        <h3>Drug Information</h3>
+        <textarea id="medicationInfo" rows="4" cols="50" readonly></textarea>
+      </div>
+
       <div class="medication-box">
         <h3>Prescribed Medications</h3>
         <div class="listbox-area">
@@ -120,8 +146,7 @@
       </div>
     </div>
     <div class="medication-buttons">
-      <button onclick="addMedication()">Add Medication</button>
-      <button onclick="removeMedication()">Remove Medication</button>
+      <button onclick="saveSelection()">Save</button>
     </div>
   </div>
 
