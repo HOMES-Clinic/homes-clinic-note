@@ -1,0 +1,8 @@
+.prev-health-table {
+    border: 1px solid;
+    width: 98%;
+}
+
+th, td {
+    border: 1px solid;
+}
