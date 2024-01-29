@@ -1,0 +1,48 @@
+/* Add this to your existing CSS */
+.encounter-container {
+    display: flex;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+.encounter-textarea {
+    flex-grow: 1;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.common-conditions {
+    width: 20%;
+    padding: 10px;
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+/* Style the sidebar buttons as needed */
+.sidebar button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: none;
+    background-color: #ddd;
+    text-align: left;
+    cursor: pointer;
+}
+
+#encounter-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Additional styling for demonstration purposes */
+#encounter-button {
+    margin-top: 10px;
+}
