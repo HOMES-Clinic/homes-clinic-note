@@ -159,3 +159,7 @@ body {
 .directions-button:hover {
   background-color: #333333;
 }
+
+.tab-content h2 {
+  padding-top: 1%
+}

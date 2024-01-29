@@ -1,48 +1,33 @@
-/* Add this to your existing CSS */
-.encounter-container {
+#Encounter {
+    height: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center; /* This will center the div vertically */
+    justify-content: center; /* This will center the div horizontally */
 }
 
-.sidebar {
-    width: 20%;
-    background-color: #f2f2f2;
-    padding: 10px;
+#encounter_workarea {
+    height: 100%;
+    flex-direction: row;
+    margin-top: 5%;
 }
 
-.encounter-textarea {
-    flex-grow: 1;
-    text-align: center;
-    margin-top: 100px;
+#sidebar {
+    display: flex;
+    flex-direction: column;
 }
 
-.common-conditions {
-    width: 20%;
-    padding: 10px;
-    background-color: #f2f2f2;
-    text-align: center;
-}
-
-/* Style the sidebar buttons as needed */
-.sidebar button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 5px;
+#sidebar button {
+    background-color: rgb(118, 113, 113);
+    color: #FFFFFF;
     border: none;
-    background-color: #ddd;
-    text-align: left;
+    padding: 15px;
+    margin-bottom: 10px;
     cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Verdana-Bold', sans-serif; /* Use the correct font name */
 }
 
-#encounter-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-}
-
-/* Additional styling for demonstration purposes */
-#encounter-button {
-    margin-top: 10px;
+#sidebar button:hover {
+    background-color: #000000;
 }

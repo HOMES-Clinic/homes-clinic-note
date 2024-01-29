@@ -12,6 +12,7 @@
   <script src="js/medication-script.js"></script>
   <script src="js/triage.js"></script>
   <script src="js/global-vars.js"></script>
+  <script src="js/encounter.js"></script>
 
   <link rel="stylesheet" href="bootstrap\css\bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -259,22 +260,40 @@
   </div>
 
   <!-- ENCOUNTER TAB -->
-  <div class="tab-content" id="Encounter">
-    <h2>Encounter</h2>
-    <div class="container text-center">
-      <div class="row justify-content-md-center">
-        <div class="col col-lg-2">
-          1 of 3
+<div class="tab-content" id="Encounter">
+  <h2>Encounter</h2>
+  <div class="container-sm text-center" id="encounter_workarea">
+    <div class="row">
+      <div class="col col-lg-2">
+        <div id="sidebar">
+          <!-- Sidebar content (buttons) -->
+          <button onclick="switchSection('vitals')">Vitals</button>
+          <button onclick="switchSection('hpi')">HPI</button>
+          <button onclick="switchSection('pmhx')">PMHx</button>
+          <button onclick="switchSection('medications')">Medications Hx/Allergies</button>
+          <button onclick="switchSection('obgyn')">ObGyn Hx</button>
+          <button onclick="switchSection('famhx')">Family Hx</button>
+          <button onclick="switchSection('sochx')">Social Hx</button>
+          <button onclick="switchSection('physexam')">Physical Exam</button>
+          <button onclick="switchSection('aandp')">Assessment & Plan</button>
         </div>
-        <div class="col-md-auto">
-          Variable width content
+        <div>
+          <!-- Black button -->
+          <button id="startButton" onclick="startTimer()" class="btn btn-dark mt-1">START</button>
+          <!-- Text underneath the button -->
+          <p>Click start to start writing/re-log time</p>
         </div>
-        <div class="col col-lg-2">
-          3 of 3
-        </div>
+      </div>
+      <div class="col col-md-6" id="encounter-input">
+        
+      </div>
+      <div class="col col-lg-2">
+        <button class="btn btn-dark" onclick="logNote()">LOG NOTE</button>
       </div>
     </div>
   </div>
+</div>
+
 
   <!-- PREVENTATIVE HEALTH TAB -->
   <div class="tab-content" id="PrevHealth">
