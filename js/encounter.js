@@ -151,7 +151,8 @@ function submitAdminForm() {
     }
 
     // Your additional form submission logic here
-
+    writing_area = document.getElementById('encounter-input')
+    writing_area.innerHTML = `${writing_area.innerHTML} <p style="text-align: left; margin-top: 0.5em">Form Submitted!</p>`
     // For example, you can log the updated sharedData to the console
     console.log(window.myApp.sharedData);
 }
