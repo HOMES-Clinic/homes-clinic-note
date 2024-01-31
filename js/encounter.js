@@ -1,3 +1,9 @@
+document.addEventListener("DOMContentLoaded", function() {
+    
+    
+    
+});
+
 function startTimer() {
     window.myApp.sharedData.started_encounter = true;
     window.myApp.sharedData.encounter_start_time = Date.now()
@@ -13,19 +19,21 @@ function saveContent(ID, text) {
 }
 
 function logNote() {
-    // Save the content of each textarea to the corresponding variable
-    var current_selections =  document.getElementById('encounter-input').querySelectorAll("textarea")
-    if (current_selections) {
-        for (current_selection of current_selections) {
+    
+    var current_selections = document.getElementById('encounter-input').querySelectorAll("textarea");
+    if (current_selections && current_selections.length > 0) {
+        for (var current_selection of current_selections) {
             // Get the value of the textarea
             var current_text = current_selection.value;
-            var current_ID = current_selection.id
+            var current_ID = current_selection.id;
             // Log the value to the console
-            saveContent(current_ID, current_text)
+            saveContent(current_ID, current_text);
         }
     } else {
-        //pass
+        // Handle the case when there are no textareas
+        // You can choose to do nothing or add specific handling
     }
+
 }
 
 function switchSection(selection) {
@@ -40,6 +48,12 @@ function switchSection(selection) {
     if (window.myApp.sharedData.started_encounter){
         help_col.innerHTML = switchHelpCol(selection)
         switch (selection) {
+            case 'admin':
+                writing_area.innerHTML = generateAdminPatientForm();
+                break;
+            case 'vitals':
+
+                break;
             case 'hpi':
                 let hpi_placeholder = 'Write History of Present Illness (HPI) here...'
                 writing_area.innerHTML = `<textarea id="hpi" class="form-control" rows="${rows}" placeholder="${hpi_placeholder}">${window.myApp.sharedData.hpi}</textarea>`
@@ -75,9 +89,15 @@ function switchSection(selection) {
             case 'physexam':
                 break;
             case 'aandp':
+                assessment_rows = 3
+                assessment_placeholder = 'Write Overall Assessment here...';
+                plan_placeholder = 'Write a Problem-based plan here.\nPlease include contingencies and patient disposition...';
+                writing_area.innerHTML = 
+                `<textarea id="pastmeds" class="form-control" rows="${assessment_rows}" style="margin-bottom: 1%" placeholder="${assessment_placeholder}">${window.myApp.sharedData.assessment}</textarea>
+                <textarea id="allergies" class="form-control" rows="${rows-assessment_rows}" style="margin-top: 1%"placeholder="${plan_placeholder}">${window.myApp.sharedData.plan}</textarea>`;
                 break;
             default:
-                writing_area.innerHTML = ''; // Clear the content for other sections
+                writing_area.innerHTML = '';
                 break;
         }
     } else {
@@ -99,6 +119,41 @@ function switchHelpCol(selection) {
             return '';
     }
 
+}
+
+function submitAdminForm() {
+
+    if (!window.myApp.sharedData.admin.form_submitted){
+        // Update sharedData
+        window.myApp.sharedData.admin.ptName = document.getElementById('patientName').value;
+        window.myApp.sharedData.admin.ptDOB = document.getElementById('dob').value;
+        window.myApp.sharedData.admin.ptGender = document.getElementById('gender').value;
+        window.myApp.sharedData.admin.date_of_service = document.getElementById('dos').value;
+        window.myApp.sharedData.admin.care_team = document.getElementById('careTeam').value;
+        window.myApp.sharedData.admin.form_submitted = true
+    }
+    else {
+        if (document.getElementById('patientName').value){
+            window.myApp.sharedData.admin.ptName = document.getElementById('patientName').value;
+        }
+        if (document.getElementById('dob').value){
+            window.myApp.sharedData.admin.ptDOB = document.getElementById('dob').value;
+        }
+        if (document.getElementById('gender').value){
+            window.myApp.sharedData.admin.ptGender = document.getElementById('gender').value;
+        }
+        if (document.getElementById('dos').value){
+            window.myApp.sharedData.admin.date_of_service = document.getElementById('dos').value;
+        }
+        if (document.getElementById('careTeam').value){
+            window.myApp.sharedData.admin.care_team = document.getElementById('careTeam').value;
+        }
+    }
+
+    // Your additional form submission logic here
+
+    // For example, you can log the updated sharedData to the console
+    console.log(window.myApp.sharedData);
 }
 
 function generateHPIInfoBox() {
@@ -146,3 +201,54 @@ function generateOBGynInfoBox() {
         </div>
     `;
 }
+
+function generateAdminPatientForm() {
+    return `
+        <!-- Form for administrative patient data -->
+        <form onsubmit="return false;" id="admin-patient-form" class="needs-validation" novalidate style="text-align: left">
+            <h3>Patient Information</h3>
+            <div class="form-group">
+                <label for="patientName">Patient Name</label>
+                <input type="text" class="form-control" id="patientName" placeholder="${window.myApp.sharedData.admin.ptName}" required>
+                <div class="invalid-feedback">
+                    Please enter the patient's name.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth is <strong>${window.myApp.sharedData.admin.ptDOB}</strong></label>
+                <input type="date" class="form-control" id="dob" required>
+                <div class="invalid-feedback">
+                    Please enter the patient's date of birth.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" required>
+                    <option value="" selected disabled>${window.myApp.sharedData.admin.ptGender}</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select the patient's gender.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dos">Date of Service is <strong>${window.myApp.sharedData.admin.date_of_service}</strong></label>
+                <input type="date" class="form-control" id="dos" required>
+                <div class="invalid-feedback">
+                    Please enter the date of service.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="careTeam">Care Team</label>
+                <textarea id="careTeam" class="form-control" placeholder="${window.myApp.sharedData.admin.care_team}" id="floatingTextarea"></textarea>
+                <div class="invalid-feedback">
+                    Please enter the names of the care team.
+                </div>
+            </div>
+            <button style="margin-top:1em" onclick="submitAdminForm()" id="formsubmitBtn" class="btn btn-dark">Submit</button>
+        </form>
+    `;
+}
+

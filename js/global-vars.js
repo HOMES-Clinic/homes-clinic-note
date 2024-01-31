@@ -10,5 +10,20 @@ window.myApp.sharedData = {
     allergies: '',
     obgynhx: '',
     famhx: '',
-    sochx: ''
+    sochx: '',
+    physexam: {},
+    assessment: '',
+    plan: '',
+    vitals: {
+        bp: '',
+
+    },
+    admin: {
+        form_submitted: false,
+        ptName: '',
+        ptDOB: 'DD-MM-YYYY',
+        ptGender: 'Select Gender',
+        date_of_service: 'DD-MM-YYYY',
+        care_team: 'Enter the names of the care team'
+    }
 };
