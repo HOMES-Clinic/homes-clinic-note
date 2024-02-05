@@ -1,9 +1,3 @@
-document.addEventListener("DOMContentLoaded", function() {
-    
-    
-    
-});
-
 function startTimer() {
     window.myApp.sharedData.started_encounter = true;
     window.myApp.sharedData.encounter_start_time = Date.now()
@@ -52,7 +46,7 @@ function switchSection(selection) {
                 writing_area.innerHTML = generateAdminPatientForm();
                 break;
             case 'vitals':
-
+                writing_area.innerHTML = generateVitalsForm();
                 break;
             case 'hpi':
                 let hpi_placeholder = 'Write History of Present Illness (HPI) here...'
@@ -100,27 +94,35 @@ function switchSection(selection) {
                 writing_area.innerHTML = '';
                 break;
         }
-    } else {
+    } else if (selection=='admin'){
+        writing_area.innerHTML = generateAdminPatientForm();
+    }
+    else if (selection=='vitals'){
+        writing_area.innerHTML = generateVitalsForm();
+    }
+    else {
         alert('Please start the encounter first.');
     }
 
 }
 
-function switchHelpCol(selection) {
+function addBpReading() {
+    // Add a new blood pressure reading input
+    const bpReadingsDiv = document.getElementById('bp-readings');
+    const newReadingInput = document.createElement('input');
+    newReadingInput.type = 'text';
+    newReadingInput.classList.add('form-control', 'bp-reading-input');
+    newReadingInput.placeholder = 'Enter BP Reading';
+    bpReadingsDiv.appendChild(newReadingInput);
+  }
 
-    switch(selection) {
-        case 'hpi': 
-            return generateHPIInfoBox();
-        case 'pmhx':
-            return '';
-        case 'obgyn':
-            return generateOBGynInfoBox();
-        default:
-            return '';
-    }
-
+function calculateBMI(height, weight) {
+    // BMI = weight (kg) / (height (m))^2
+    const heightInMeters = height / 100;
+    return (weight / (heightInMeters * heightInMeters)).toFixed(2);
 }
 
+// Submit functions
 function submitAdminForm() {
 
     if (!window.myApp.sharedData.admin.form_submitted){
@@ -154,53 +156,47 @@ function submitAdminForm() {
     writing_area = document.getElementById('encounter-input')
     writing_area.innerHTML = `${writing_area.innerHTML} <p style="text-align: left; margin-top: 0.5em">Form Submitted!</p>`
     // For example, you can log the updated sharedData to the console
-    console.log(window.myApp.sharedData);
+    //console.log(window.myApp.sharedData);
 }
 
-function generateHPIInfoBox() {
-    return `
-        <!-- HPI Information Box -->
-        <div id="hpi-info-box" style="text-align: left; border: 2px solid #d3d3d3; border-radius: 10px; padding: 4px; background-color: #f5f5f5; height: 95%; overflow-y: auto;">
-            <h3 style="color: #333; font-size: 18px;">HPI Guide</h3>
-            <p style="font-size: 14px;">
-                To gather a comprehensive HPI, consider the following:
-            </p>
-            <ul style="font-size: 14px;">
-                <li>Chronology/Timing - provide a precise sequence of events.</li>
-                <li>If dealing with a chronic issue, <strong>what is different now?</strong></li>
-                <li>If multiple complaints, address each sequentially</li>
-                <li>Analyze symptoms (remember LOCATES).</li>
-            </ul>
-            <p><strong>LOCATES:</strong></p>
-            <ul style="font-size: 14px;">
-                <li><strong>Location:</strong></li>
-                <li><strong>Onset:</strong></li>
-                <li><strong>Characteristic:</strong></li>
-                <li><strong>Aggravating/Alleviating</strong></li>
-                <li><strong>Timing/Triggers</strong></li>
-                <li><strong>Environment/Emotion</strong></li>
-                <li><strong>Severity</strong></li>
-            </ul>
-        </div>
-    `;
+function submitVitalsForm() {
+    // Update sharedData with vital signs
+    const bpReadings = Array.from(document.querySelectorAll('.bp-reading-input')).map(input => input.value);
+    window.myApp.sharedData.vitals.bp = bpReadings;
+    window.myApp.sharedData.vitals.hr = document.getElementById('hr').value;
+    window.myApp.sharedData.vitals.height = document.getElementById('height').value;
+    window.myApp.sharedData.vitals.weight = document.getElementById('weight').value;
+    // Calculate BMI (assuming height is in cm and weight is in kg)
+    window.myApp.sharedData.vitals.bmi = calculateBMI(window.myApp.sharedData.vitals.height, window.myApp.sharedData.vitals.weight);
+  
+    // Display submitted blood pressure readings
+    const submittedBpList = document.getElementById('submitted-bp-list');
+    submittedBpList.innerHTML = '';
+    bpReadings.forEach(reading => {
+      const listItem = document.createElement('li');
+      listItem.textContent = reading;
+      submittedBpList.appendChild(listItem);
+    });
+  
+    // Inform the user that the form is submitted
+    const writing_area = document.getElementById('encounter-input');
+    writing_area.innerHTML += `<p style="text-align: left; margin-top: 0.5em">Vitals Submitted!</p>`;
 }
 
-function generateOBGynInfoBox() {
-    return `
-        <!-- OBGyn Information Box -->
-        <div id="obgyn-info-box" style="text-align: left; border: 2px solid #d3d3d3; border-radius: 10px; padding: 4px; background-color: #f5f5f5; height: 95%; overflow-y: auto;">
-            <h3 style="color: #333; font-size: 18px;">OBGyn History Guide</h3>
-            <p style="font-size: 14px;">
-                To gather a comprehensive OBGyn history, consider the following:
-            </p>
-            <ul style="font-size: 14px;">
-                <li><strong>Menstrual History</strong> - age at menarche/menopause, regularity, duration, flow, any changes.</li>
-                <li><strong>Obstetric History</strong> - gravida (total pregnancies), para (pregnancies carried to viable gestational age), abortions/miscarriages.</li>
-                <li><strong>Gynecologic Surgeries</strong> - any surgeries related to the reproductive system.</li>
-                <li><strong>Contraceptive History</strong> - types used, side effects, satisfaction.</li>
-            </ul>
-        </div>
-    `;
+// Generate functions
+function switchHelpCol(selection) {
+
+    switch(selection) {
+        case 'hpi': 
+            return generateHPIInfoBox();
+        case 'pmhx':
+            return '';
+        case 'obgyn':
+            return generateOBGynInfoBox();
+        default:
+            return '';
+    }
+
 }
 
 function generateAdminPatientForm() {
@@ -253,3 +249,93 @@ function generateAdminPatientForm() {
     `;
 }
 
+function generateVitalsForm() {
+    return `
+      <!-- Vitals Form -->
+      <form onsubmit="return false;" id="vitals-form" class="needs-validation" novalidate style="text-align: left">
+        <h3>Vitals</h3>
+        <div class="form-group">
+          <label for="bp">Blood Pressure</label>
+          <div class="bp-input-section">
+            <div id="bp-readings"></div>
+            <input type="text" class="form-control bp-reading-input" placeholder="Enter BP Reading">
+            <button type="button" onclick="addBpReading()" class="btn btn-secondary" style="margin-top: 0.5em">Add Reading</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="hr">Heart Rate</label>
+          <input type="number" class="form-control" id="hr" placeholder="${window.myApp.sharedData.vitals.hr}" required>
+          <div class="invalid-feedback">
+            Please enter the heart rate.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="height">Height (cm)</label>
+          <input type="number" class="form-control" id="height" placeholder="${window.myApp.sharedData.vitals.height}" required>
+          <div class="invalid-feedback">
+            Please enter the height.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="weight">Weight (kg)</label>
+          <input type="number" class="form-control" id="weight" placeholder="${window.myApp.sharedData.vitals.weight}" required>
+          <div class="invalid-feedback">
+            Please enter the weight.
+          </div>
+        </div>
+        <!-- Display submitted blood pressure readings -->
+        <div id="submitted-bp">
+          <label>Submitted Blood Pressure Readings:</label>
+          <ul id="submitted-bp-list"></ul>
+        </div>
+        <!-- Add other vital signs as needed -->
+        <button style="margin-top:1em" onclick="submitVitalsForm()" class="btn btn-dark">Submit</button>
+      </form>
+    `;
+  }
+
+function generateHPIInfoBox() {
+    return `
+        <!-- HPI Information Box -->
+        <div id="hpi-info-box" style="text-align: left; border: 2px solid #d3d3d3; border-radius: 10px; padding: 4px; background-color: #f5f5f5; height: 95%; overflow-y: auto;">
+            <h3 style="color: #333; font-size: 18px;">HPI Guide</h3>
+            <p style="font-size: 14px;">
+                To gather a comprehensive HPI, consider the following:
+            </p>
+            <ul style="font-size: 14px;">
+                <li>Chronology/Timing - provide a precise sequence of events.</li>
+                <li>If dealing with a chronic issue, <strong>what is different now?</strong></li>
+                <li>If multiple complaints, address each sequentially</li>
+                <li>Analyze symptoms (remember LOCATES).</li>
+            </ul>
+            <p><strong>LOCATES:</strong></p>
+            <ul style="font-size: 14px;">
+                <li><strong>Location:</strong></li>
+                <li><strong>Onset:</strong></li>
+                <li><strong>Characteristic:</strong></li>
+                <li><strong>Aggravating/Alleviating</strong></li>
+                <li><strong>Timing/Triggers</strong></li>
+                <li><strong>Environment/Emotion</strong></li>
+                <li><strong>Severity</strong></li>
+            </ul>
+        </div>
+    `;
+}
+
+function generateOBGynInfoBox() {
+    return `
+        <!-- OBGyn Information Box -->
+        <div id="obgyn-info-box" style="text-align: left; border: 2px solid #d3d3d3; border-radius: 10px; padding: 4px; background-color: #f5f5f5; height: 95%; overflow-y: auto;">
+            <h3 style="color: #333; font-size: 18px;">OBGyn History Guide</h3>
+            <p style="font-size: 14px;">
+                To gather a comprehensive OBGyn history, consider the following:
+            </p>
+            <ul style="font-size: 14px;">
+                <li><strong>Menstrual History</strong> - age at menarche/menopause, regularity, duration, flow, any changes.</li>
+                <li><strong>Obstetric History</strong> - gravida (total pregnancies), para (pregnancies carried to viable gestational age), abortions/miscarriages.</li>
+                <li><strong>Gynecologic Surgeries</strong> - any surgeries related to the reproductive system.</li>
+                <li><strong>Contraceptive History</strong> - types used, side effects, satisfaction.</li>
+            </ul>
+        </div>
+    `;
+}

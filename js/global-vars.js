@@ -16,7 +16,12 @@ window.myApp.sharedData = {
     plan: '',
     vitals: {
         bp: '',
-
+        hr: 0,
+        height: 0,
+        weight: 0,
+        bmi: 0,
+        temp: 0,
+        rr: 0,
     },
     admin: {
         form_submitted: false,
