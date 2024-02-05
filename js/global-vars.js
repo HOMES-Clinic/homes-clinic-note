@@ -11,7 +11,43 @@ window.myApp.sharedData = {
     obgynhx: '',
     famhx: '',
     sochx: '',
-    physexam: {},
+    physexam: {
+        'HEENT': {
+            positive: [],
+            negative: [],
+            comments: []
+        }, 
+        'Respiratory': {
+            positive: [],
+            negative: [],
+            comments: []
+        },
+        'Cardiovascular': {
+            positive: [],
+            negative: [],
+            comments: []
+        },
+        'Abdominal': {
+            positive: [],
+            negative: [],
+            comments: []
+        },
+        'Musculoskeletal': {
+            positive: [],
+            negative: [],
+            comments: []
+        },
+        'Neurological': {
+            positive: [],
+            negative: [],
+            comments: []
+        },
+        'Genitourinary': {
+            positive: [],
+            negative: [],
+            comments: []
+        }
+    },
     assessment: '',
     plan: '',
     vitals: {

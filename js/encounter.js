@@ -190,11 +190,27 @@ function submitVitalsForm() {
 
 function submitPhysicalExamForm() {
     // Collect and process data from the form
-    // Update sharedData with physical exam findings
+    const organSystems = Object.keys(window.myApp.sharedData.physexam);
+
+    organSystems.forEach(system => {
+        // Get positive findings
+        const positiveFindings = Array.from(document.querySelectorAll(`#${system}-positive-findings option:checked`)).map(option => option.value);
+        window.myApp.sharedData.physexam[system].positive = positiveFindings;
+
+        // Get negative findings
+        const negativeFindings = Array.from(document.querySelectorAll(`#${system}-negative-findings option:checked`)).map(option => option.value);
+        window.myApp.sharedData.physexam[system].negative = negativeFindings;
+
+        // Get additional comments
+        const comments = document.getElementById(`${system}-comments`).value;
+        window.myApp.sharedData.physexam[system].comments = comments;
+    });
+
     // Display any additional messages or confirmations
     const writing_area = document.getElementById('encounter-input');
     writing_area.innerHTML += `<p style="text-align: left; margin-top: 0.5em">Physical Exam Submitted!</p>`;
-  }
+}
+
 
 // Generate functions
 function switchHelpCol(selection) {
@@ -355,15 +371,15 @@ function generateOBGynInfoBox() {
 
 function generatePhysicalExamForm() {
     // Define the organ systems
-    const organSystems = ['cardio', 'resp']; // Add more systems as needed
-  
+    const organSystems = Object.keys(window.myApp.sharedData.physexam); // Add more systems as needed
+
     return `
     <div class="accordion accordion-flush" id="physexamAccordion">
       ${organSystems.map(system => `
         <div class="accordion-item">
           <h2 class="accordion-header" id="${system}-heading">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${system}-collapse" aria-expanded="false" aria-controls="${system}-collapse">
-              ${capitalizeFirstLetter(system)} System
+              ${capitalizeFirstLetter(system)}
             </button>
           </h2>
           <div id="${system}-collapse" class="accordion-collapse collapse" aria-labelledby="${system}-heading" data-bs-parent="#physexamAccordion">
@@ -381,14 +397,29 @@ function generatePhysicalExamForm() {
 function generatePhysicalExamOrganSystem(system) {
     // Customize the list of findings as needed for each organ system
     const findings = {
-      'cardio': ['Heart Sounds', 'Peripheral Edema', 'Capillary Refill'],
-      'resp': ['Breath Sounds', 'Cough', 'Chest Expansion']
+        'HEENT': ['XXX'],
+        'Respiratory': ['Breath Sounds', 'Cough', 'Chest Expansion'],
+        'Cardiovascular': ['Heart Sounds', 'Peripheral Edema', 'Capillary Refill'],
+        'Abdominal': ['Murphy Sign'],
+        'Musculoskeletal': ['XXX'],
+        'Neurological': ['XXX'],
+        'Genitourinary': ['XXX'],
+      
       // Add more organ systems and findings as needed
     };
   
     return `
       <div class="form-group">
-        ${generateCheckboxInputs(system, findings[system])}
+        <label for="${system}-positive-findings">Positive Findings</label>
+        <select id="${system}-positive-findings" class="form-control multiselect" multiple="multiple">
+            ${generateMultiselectOptions(findings[system])}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="${system}-negative-findings">Negative Findings</label>
+        <select id="${system}-negative-findings" class="form-control multiselect" multiple="multiple">
+            ${generateMultiselectOptions(findings[system])}
+        </select>
       </div>
       <div class="form-group">
         <label for="${system}-comments">Additional Comments</label>
@@ -397,13 +428,6 @@ function generatePhysicalExamOrganSystem(system) {
     `;
 }
 
-function generateCheckboxInputs(system, findings) {
-    return findings.map(find => `
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="${system}-${find}" value="${find}">
-        <label class="form-check-label checkbox-label" for="${system}-${find}">
-          <span class="checkbox-symbol">+</span> ${find} <span class="checkbox-symbol">-</span>
-        </label>
-      </div>
-    `).join('');
+function generateMultiselectOptions(options) {
+    return options.map(option => `<option value="${option}">${option}</option>`).join('');
 }
