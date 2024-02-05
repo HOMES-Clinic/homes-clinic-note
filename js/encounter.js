@@ -81,6 +81,7 @@ function switchSection(selection) {
                 writing_area.innerHTML = `<textarea id="sochx" class="form-control" rows="${rows}" placeholder="${social_placeholder}">${window.myApp.sharedData.sochx}</textarea>`
                 break;
             case 'physexam':
+                writing_area.innerHTML = generatePhysicalExamForm();
                 break;
             case 'aandp':
                 assessment_rows = 3
@@ -120,6 +121,10 @@ function calculateBMI(height, weight) {
     // BMI = weight (kg) / (height (m))^2
     const heightInMeters = height / 100;
     return (weight / (heightInMeters * heightInMeters)).toFixed(2);
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 // Submit functions
@@ -182,6 +187,14 @@ function submitVitalsForm() {
     const writing_area = document.getElementById('encounter-input');
     writing_area.innerHTML += `<p style="text-align: left; margin-top: 0.5em">Vitals Submitted!</p>`;
 }
+
+function submitPhysicalExamForm() {
+    // Collect and process data from the form
+    // Update sharedData with physical exam findings
+    // Display any additional messages or confirmations
+    const writing_area = document.getElementById('encounter-input');
+    writing_area.innerHTML += `<p style="text-align: left; margin-top: 0.5em">Physical Exam Submitted!</p>`;
+  }
 
 // Generate functions
 function switchHelpCol(selection) {
@@ -338,4 +351,59 @@ function generateOBGynInfoBox() {
             </ul>
         </div>
     `;
+}
+
+function generatePhysicalExamForm() {
+    // Define the organ systems
+    const organSystems = ['cardio', 'resp']; // Add more systems as needed
+  
+    return `
+    <div class="accordion accordion-flush" id="physexamAccordion">
+      ${organSystems.map(system => `
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="${system}-heading">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${system}-collapse" aria-expanded="false" aria-controls="${system}-collapse">
+              ${capitalizeFirstLetter(system)} System
+            </button>
+          </h2>
+          <div id="${system}-collapse" class="accordion-collapse collapse" aria-labelledby="${system}-heading" data-bs-parent="#physexamAccordion">
+            <div class="accordion-body">
+              ${generatePhysicalExamOrganSystem(system)}
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <button style="margin-top:1em" onclick="submitPhysicalExamForm()" class="btn btn-dark">Submit</button>
+  `;
+}
+
+function generatePhysicalExamOrganSystem(system) {
+    // Customize the list of findings as needed for each organ system
+    const findings = {
+      'cardio': ['Heart Sounds', 'Peripheral Edema', 'Capillary Refill'],
+      'resp': ['Breath Sounds', 'Cough', 'Chest Expansion']
+      // Add more organ systems and findings as needed
+    };
+  
+    return `
+      <div class="form-group">
+        ${generateCheckboxInputs(system, findings[system])}
+      </div>
+      <div class="form-group">
+        <label for="${system}-comments">Additional Comments</label>
+        <textarea id="${system}-comments" class="form-control" placeholder="Enter additional comments"></textarea>
+      </div>
+    `;
+}
+
+function generateCheckboxInputs(system, findings) {
+    return findings.map(find => `
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="${system}-${find}" value="${find}">
+        <label class="form-check-label checkbox-label" for="${system}-${find}">
+          <span class="checkbox-symbol">+</span> ${find} <span class="checkbox-symbol">-</span>
+        </label>
+      </div>
+    `).join('');
 }

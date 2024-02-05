@@ -32,6 +32,10 @@
     background-color: #000000;
 }
 
+#submitted-bp {
+    margin-top: 20px;
+}
+
 .form-group {
     margin-top: 0.5em;
 }
@@ -51,7 +55,22 @@
     flex: 1;
     margin-right: 5px;
 }
-  
-#submitted-bp {
-    margin-top: 20px;
+
+.form-check {
+    text-align: left;
 }
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-symbol {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.checkbox-symbol:hover {
+    text-decoration: underline;
+}
+  
