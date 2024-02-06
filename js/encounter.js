@@ -50,7 +50,8 @@ function switchSection(selection) {
                 break;
             case 'hpi':
                 let hpi_placeholder = 'Write History of Present Illness (HPI) here...'
-                writing_area.innerHTML = `<textarea id="hpi" class="form-control" rows="${rows}" placeholder="${hpi_placeholder}">${window.myApp.sharedData.hpi}</textarea>`
+                writing_area.innerHTML = `<textarea id="hpi" class="form-control" rows="${Math.floor(rows/2)}" placeholder="${hpi_placeholder}">${window.myApp.sharedData.hpi}</textarea>
+                ${generateROS()}`
                 break;
             case 'pmhx':
                 let pmhx_rows = 13
@@ -279,6 +280,12 @@ function generateAdminPatientForm() {
 }
 
 function generateVitalsForm() {
+
+    let submittedBpList = ''
+    if (window.myApp.sharedData.vitals.bp != '') {
+        submittedBpList = window.myApp.sharedData.vitals.bp.map(reading => `<li>${reading}</li>`).join('');
+    }
+
     return `
       <!-- Vitals Form -->
       <form onsubmit="return false;" id="vitals-form" class="needs-validation" novalidate style="text-align: left">
@@ -315,7 +322,7 @@ function generateVitalsForm() {
         <!-- Display submitted blood pressure readings -->
         <div id="submitted-bp">
           <label>Submitted Blood Pressure Readings:</label>
-          <ul id="submitted-bp-list"></ul>
+          <ul id="submitted-bp-list">${submittedBpList}</ul>
         </div>
         <!-- Add other vital signs as needed -->
         <button style="margin-top:1em" onclick="submitVitalsForm()" class="btn btn-dark">Submit</button>
@@ -347,6 +354,68 @@ function generateHPIInfoBox() {
                 <li><strong>Environment/Emotion</strong></li>
                 <li><strong>Severity</strong></li>
             </ul>
+        </div>
+    `;
+}
+
+function generateROS() {
+    // Define the ROS categories
+    const rosCategories = ['general', 'skin', 'HEENT', 'cardiovascular', 'pulmonary', 'gastrointestinal', 'genitourinary', 'musculoskeletal', 'endocrine', 'hemeonc', 'neurologic', 'psychiatric'];
+
+    return `
+        <!-- ROS Form -->
+        <div class="accordion accordion-flush" id="rosAccordion">
+            ${rosCategories.map(category => `
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="${category}-ros-heading">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${category}-ros-collapse" aria-expanded="false" aria-controls="${category}-ros-collapse">
+                            ${capitalizeFirstLetter(category)}
+                        </button>
+                    </h2>
+                    <div id="${category}-ros-collapse" class="accordion-collapse collapse" aria-labelledby="${category}-ros-heading" data-bs-parent="#rosAccordion">
+                        <div class="accordion-body">
+                            ${generateROSCategory(category)}
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function generateROSCategory(category) {
+    // Customize the list of ROS findings as needed for each category
+    const rosFindings = {
+        'general': ['Weight loss', 'Weight gain', 'Fatigue', 'Fever', 'Chills'],
+        'skin': ['Rash', 'Itching', 'Lesions'],
+        'HEENT': ['Headache', 'Vision changes', 'Hearing changes'],
+        'cardiovascular': ['Chest pain', 'Palpitations', 'Edema'],
+        'pulmonary': ['Shortness of breath', 'Cough', 'Wheezing'],
+        'gastrointestinal': ['Abdominal pain', 'Nausea', 'Vomiting'],
+        'genitourinary': ['Dysuria', 'Frequency', 'Hematuria'],
+        'musculoskeletal': ['Joint pain', 'Muscle pain', 'Stiffness'],
+        'endocrine': ['Polyuria', 'Polydipsia', 'Heat or cold intolerance'],
+        'hemeonc': ['Easy bruising', 'Lymphadenopathy', 'Bleeding tendencies'],
+        'neurologic': ['Headache', 'Dizziness', 'Weakness'],
+        'psychiatric': ['Depression', 'Anxiety', 'Insomnia'],
+    };
+
+    return `
+        <div class="form-group">
+            <label for="${category}-positive-findings">Positive Findings</label>
+            <select id="${category}-positive-findings" class="form-control multiselect" multiple="multiple">
+                ${generateMultiselectOptions(rosFindings[category])}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="${category}-negative-findings">Negative Findings</label>
+            <select id="${category}-negative-findings" class="form-control multiselect" multiple="multiple">
+                ${generateMultiselectOptions(rosFindings[category])}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="${category}-comments">Additional Comments</label>
+            <textarea id="${category}-comments" class="form-control" placeholder="Enter additional comments"></textarea>
         </div>
     `;
 }
