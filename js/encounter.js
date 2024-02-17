@@ -364,21 +364,34 @@ function generateROS() {
 
     return `
         <!-- ROS Form -->
-        <div class="accordion accordion-flush" id="rosAccordion">
-            ${rosCategories.map(category => `
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="${category}-ros-heading">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${category}-ros-collapse" aria-expanded="false" aria-controls="${category}-ros-collapse">
-                            ${capitalizeFirstLetter(category)}
-                        </button>
-                    </h2>
-                    <div id="${category}-ros-collapse" class="accordion-collapse collapse" aria-labelledby="${category}-ros-heading" data-bs-parent="#rosAccordion">
-                        <div class="accordion-body">
-                            ${generateROSCategory(category)}
-                        </div>
-                    </div>
-                </div>
-            `).join('')}
+        <div id="encounter-input" style="text-align: left;">
+            <div class="dropdown" data-bs-theme="dark">
+                <button class="btn btn-light dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select ROS Category
+                </button>
+                <ul class="dropdown-menu">
+                    ${rosCategories.map(category => `
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="selectROSCategory('${category}')">
+                                ${capitalizeFirstLetter(category)}
+                            </a>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+            <div id="rosCollapse"></div>
+        </div>
+    `;
+}
+
+function selectROSCategory(category) {
+    const rosCollapse = document.getElementById('rosCollapse');
+    rosCollapse.innerHTML = '';
+    rosCollapse.innerHTML = `
+        <div class="collapse show" id="\${category}-ros-collapse">
+            <div class="card card-body">
+                ${generateROSCategory(category)}
+            </div>
         </div>
     `;
 }
@@ -402,19 +415,19 @@ function generateROSCategory(category) {
 
     return `
         <div class="form-group">
-            <label for="${category}-positive-findings">Positive Findings</label>
+            <label for="${category}-positive-findings">Positive Findings (${capitalizeFirstLetter(category)})</label>
             <select id="${category}-positive-findings" class="form-control multiselect" multiple="multiple">
                 ${generateMultiselectOptions(rosFindings[category])}
             </select>
         </div>
         <div class="form-group">
-            <label for="${category}-negative-findings">Negative Findings</label>
+            <label for="${category}-negative-findings">Negative Findings (${capitalizeFirstLetter(category)})</label>
             <select id="${category}-negative-findings" class="form-control multiselect" multiple="multiple">
                 ${generateMultiselectOptions(rosFindings[category])}
             </select>
         </div>
         <div class="form-group">
-            <label for="${category}-comments">Additional Comments</label>
+            <label for="${category}-comments">Additional Comments (${capitalizeFirstLetter(category)})</label>
             <textarea id="${category}-comments" class="form-control" placeholder="Enter additional comments"></textarea>
         </div>
     `;
