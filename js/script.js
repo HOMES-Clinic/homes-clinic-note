@@ -19,6 +19,11 @@ function openTab(tabName) {
 
   document.getElementById(tabName).style.display = "block";
   document.querySelector('[onclick="openTab(\'' + tabName + '\')"]').classList.add("selected");
+
+  if(tabName=='Encounter'){
+    switchSection('admin')
+  }
+
 }
 
 // JavaScript code to compile information into the Compilation tab

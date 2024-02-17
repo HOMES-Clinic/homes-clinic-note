@@ -3,7 +3,7 @@
 
 <head>
   <title>HOMES Clinic</title>
-  
+
   <script src="js/script.js" defer></script>
   <script src="jquery.min.js" defer></script>
   <script src="listbox/listbox.js" defer></script>
@@ -11,14 +11,20 @@
   <script src="listbox/utils.js"></script>
   <script src="js/medication-script.js"></script>
   <script src="js/global-vars.js"></script>
+  <script src="js/encounter.js"></script>
+  <script src="bootstrap\js\bootstrap.bundle.min.js"></script>
+  <script src="bootstrap\js\bootstrap-multiselect.js"></script>
 
+  <link rel="stylesheet" href="bootstrap\css\bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap\css\bootstrap-multiselect.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <link rel="stylesheet" type="text/css" href="css/medication-styles.css">
   <link rel="stylesheet" type="text/css" href="css/prev-health.css">
-
   <link rel="stylesheet" type="text/css" href="print-styles.css" media="print">
   <link rel="stylesheet" type="text/css" href="listbox\listbox.css">
   <link rel="stylesheet" type="text/css" href="css/triage.css">
+  <link rel="stylesheet" type="text/css" href="css/encounter.css">
+  
 </head>
 
 <body>
@@ -196,25 +202,43 @@
   </div>
 
   <!-- ENCOUNTER TAB -->
-  <div class="tab-content" id="Encounter">
-    <h2>Encounter</h2>
-    <p>
-      This has various subtabs within it based on medical history and physical templates. There are also questionnaires
-      like the DAST, PHQ-9, etc. (things you would be concerned for in a homeless population). There are automatic
-      calculators for things like the ASCVD Score.
-    </p>
-    <div id="encounter-section">
-      <h3>Select Type of Encounter</h3>
-      <input type="radio" id="medication-refill" name="encounter-type" value="Medication Refill">
-      <label for="medication-refill">Medication Refill</label><br>
-      <input type="radio" id="hypertension" name="encounter-type" value="Hypertension">
-      <label for="hypertension">Hypertension</label><br>
-      <input type="radio" id="basic-visit" name="encounter-type" value="Basic Visit">
-      <label for="basic-visit">Basic Visit</label><br>
+<div class="tab-content" id="Encounter">
+  <h2>Encounter</h2>
+  <div class="container-sm text-center" id="encounter_workarea" style="margin-top:2%">
+    <div class="row">
+      <div class="col col-lg-2">
+        <div id="sidebar">
+          <!-- Sidebar content (buttons) -->
+          <button onclick="switchSection('admin')">Administrative</button>
+          <button onclick="switchSection('vitals')">Vitals</button>
+          <button onclick="switchSection('hpi')">HPI</button>
+          <button onclick="switchSection('pmhx')">PMHx</button>
+          <button onclick="switchSection('medications')">Medications Hx/Allergies</button>
+          <button onclick="switchSection('obgyn')">ObGyn Hx</button>
+          <button onclick="switchSection('famhx')">Family Hx</button>
+          <button onclick="switchSection('sochx')">Social Hx</button>
+          <button onclick="switchSection('physexam')">Physical Exam</button>
+          <button onclick="switchSection('aandp')">Assessment & Plan</button>
+        </div>
+        <div>
+          <!-- Black button -->
+          <button id="startButton" onclick="startTimer()" class="btn btn-dark mt-1">START</button>
+          <!-- Text underneath the button -->
+          <p>Click start to start writing/re-log time</p>
+        </div>
+      </div>
+      <div class="col col-md-6" id="encounter-input">
+        
+      </div>
+      <div class="col col-lg-2">
+        <div id="encounter-help-col" style="margin-bottom: 5px; height: 100%;">
+
+        </div>
+      </div>
     </div>
-    <button onclick="saveTime()">Save Time</button>
-    <span id="TimeButton"></span>
   </div>
+</div>
+
 
   <!-- PREVENTATIVE HEALTH TAB -->
   <div class="tab-content" id="PrevHealth">

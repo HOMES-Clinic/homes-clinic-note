@@ -1,0 +1,86 @@
+#Encounter {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This will center the div vertically */
+    justify-content: center; /* This will center the div horizontally */
+}
+
+#encounter_workarea {
+    height: 100%;
+    flex-direction: row;
+    margin-top: 5%;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar button {
+    background-color: rgb(118, 113, 113);
+    color: #FFFFFF;
+    border: none;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Verdana-Bold', sans-serif; /* Use the correct font name */
+}
+
+#sidebar button:hover {
+    background-color: #000000;
+}
+
+#submitted-bp {
+    margin-top: 20px;
+}
+
+#hpi-info-box {
+    height: 700px;
+    text-align: left; 
+    border: 2px solid #d3d3d3; 
+    border-radius: 10px; 
+    padding: 4px; 
+    background-color: #f5f5f5; 
+    overflow-y: auto;
+}
+
+.form-group {
+    margin-top: 0.5em;
+}
+
+.form-group label{
+    margin-bottom: 0.25em;
+    font-weight: bold;
+}
+
+.bp-input-section {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  
+.bp-reading-input {
+    flex: 1;
+    margin-right: 5px;
+}
+
+.form-check {
+    text-align: left;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-symbol {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.checkbox-symbol:hover {
+    text-decoration: underline;
+}
+  
