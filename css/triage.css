@@ -102,6 +102,10 @@
 
 /* Patient Priority Collapsible */
 
+.collapsible-priority {
+  margin-bottom: 30px;
+}
+
 .priority-container {
   display: flex;
   flex-direction: row;
@@ -157,17 +161,75 @@
 
 /* Triage Table Styling */
 
-.triage-table {
-  margin-top: 20px;
+.triage-grid, .triage-input-grid {
+  display: grid;
+  grid-template-columns: 205px 140px 315px 125px 275px 110px;
+  column-gap: 10px;
+  row-gap: 10px;
+  align-items: center;
 }
 
-.triage-table tr td {
-  border: 1px solid black;
+.triage-input-grid {
+  margin-bottom: 10px;
 }
 
-.table-header {
-  font-size: 18px;
-  font-weight: bold;
-  background-color: rgb(192, 40, 54);
+.triage-titles {
+  margin-bottom: 8px;
+}
+
+.name-input, .dob-input, .cc-input, .temp-input {
+  width: 100%;
+  font-size: 15px;
+  padding: 6px;
+}
+
+.radio-div {
+  width: 100%;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.input-div-name {
+  width: 190px;
+}
+
+.input-div-dob {
+  width: 125px;
+}
+
+.input-div-cc {
+  width: 300px;
+}
+
+.input-div-temp {
+  width: 110px;
+}
+
+.input-div-hhh {
+  width: 260px;
+}
+
+.add-triage-button {
+  background-color: green;
   color: white;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.delete-triage-button {
+  background-color: darkred;
+  color: white;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.strikethrough {
+  text-decoration: line-through;
 }
