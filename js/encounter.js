@@ -333,7 +333,7 @@ function generateVitalsForm() {
 function generateHPIInfoBox() {
     return `
         <!-- HPI Information Box -->
-        <div id="hpi-info-box" style="text-align: left; border: 2px solid #d3d3d3; border-radius: 10px; padding: 4px; background-color: #f5f5f5; height: 95%; overflow-y: auto;">
+        <div id="hpi-info-box">
             <h3 style="color: #333; font-size: 18px;">HPI Guide</h3>
             <p style="font-size: 14px;">
                 To gather a comprehensive HPI, consider the following:
@@ -349,7 +349,7 @@ function generateHPIInfoBox() {
                 <li><strong>Location:</strong></li>
                 <li><strong>Onset:</strong></li>
                 <li><strong>Characteristic:</strong></li>
-                <li><strong>Aggravating/Alleviating</strong></li>
+                <li><strong>Agg/Alleviating</strong></li>
                 <li><strong>Timing/Triggers</strong></li>
                 <li><strong>Environment/Emotion</strong></li>
                 <li><strong>Severity</strong></li>
