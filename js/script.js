@@ -24,6 +24,10 @@ function openTab(tabName) {
     switchSection('admin')
   }
 
+  if(tabName=='GenNote'){
+    generateClinicalNote();
+  }
+
 }
 
 // JavaScript code to compile information into the Compilation tab
