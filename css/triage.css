@@ -19,6 +19,7 @@
 /* Button and Collapsible Content Styling */
 
 .triage-title {
+  font-size: 34px;
   margin-bottom: 14px;
 }
 
@@ -173,7 +174,8 @@
   margin-bottom: 10px;
 }
 
-.triage-titles {
+.triage-topics {
+  font-size: 18px;
   margin-bottom: 8px;
 }
 
