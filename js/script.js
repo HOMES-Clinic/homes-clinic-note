@@ -25,7 +25,7 @@ function openTab(tabName) {
   }
 
   if(tabName=='GenNote'){
-    generateClinicalNote();
+    generateNote();
   }
 
 }
