@@ -19,6 +19,7 @@
 /* Button and Collapsible Content Styling */
 
 .triage-title {
+  font-size: 34px;
   margin-bottom: 14px;
 }
 
@@ -173,7 +174,10 @@
   margin-bottom: 10px;
 }
 
-.triage-titles {
+
+
+.triage-topics {
+  font-size: 18px;
   margin-bottom: 8px;
 }
 
@@ -211,17 +215,6 @@
 
 .add-triage-button {
   background-color: green;
-  color: white;
-  border: none;
-  font-size: 15px;
-  cursor: pointer;
-  width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.delete-triage-button {
-  background-color: darkred;
   color: white;
   border: none;
   font-size: 15px;
