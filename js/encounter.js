@@ -50,7 +50,7 @@ function switchSection(selection) {
                 break;
             case 'hpi':
                 let hpi_placeholder = 'Write History of Present Illness (HPI) here...'
-                writing_area.innerHTML = `<textarea id="hpi" class="form-control" rows="${Math.floor(rows/2)}" placeholder="${hpi_placeholder}">${window.myApp.sharedData.hpi}</textarea>
+                writing_area.innerHTML = `<textarea id="hpi" class="form-control" rows="${Math.floor(rows/4)}" placeholder="${hpi_placeholder}">${window.myApp.sharedData.hpi}</textarea>
                 ${generateROS()}`
                 break;
             case 'pmhx':
@@ -71,7 +71,7 @@ function switchSection(selection) {
                 break;
             case 'obgyn':
                 obgyn_placeholder = 'Write ObGyn Hx here...';
-                writing_area.innerHTML = `<textarea id="${selection}" class="form-control" rows="${rows}" placeholder="${obgyn_placeholder}">${window.myApp.sharedData.obgynhx}</textarea>`
+                writing_area.innerHTML = `<textarea id="obgynhx" class="form-control" rows="${rows}" placeholder="${obgyn_placeholder}">${window.myApp.sharedData.obgynhx}</textarea>`
                 break;
             case 'famhx':
                 family_placeholder = 'Write Family Hx here...\nFamily Member (living/passed - age/age passed): disease'
@@ -89,8 +89,8 @@ function switchSection(selection) {
                 assessment_placeholder = 'Write Overall Assessment here...';
                 plan_placeholder = 'Write a Problem-based plan here.\nPlease include contingencies and patient disposition...';
                 writing_area.innerHTML = 
-                `<textarea id="pastmeds" class="form-control" rows="${assessment_rows}" style="margin-bottom: 1%" placeholder="${assessment_placeholder}">${window.myApp.sharedData.assessment}</textarea>
-                <textarea id="allergies" class="form-control" rows="${rows-assessment_rows}" style="margin-top: 1%"placeholder="${plan_placeholder}">${window.myApp.sharedData.plan}</textarea>`;
+                `<textarea id="assessment" class="form-control" rows="${assessment_rows}" style="margin-bottom: 1%" placeholder="${assessment_placeholder}">${window.myApp.sharedData.assessment}</textarea>
+                <textarea id="plan" class="form-control" rows="${rows-assessment_rows}" style="margin-top: 1%"placeholder="${plan_placeholder}">${window.myApp.sharedData.plan}</textarea>`;
                 break;
             default:
                 writing_area.innerHTML = '';
@@ -189,6 +189,49 @@ function submitVitalsForm() {
     writing_area.innerHTML += `<p style="text-align: left; margin-top: 0.5em">Vitals Submitted!</p>`;
 }
 
+function saveROSCategory(category) {
+    const positiveFindings = Array.from(document.getElementById(`${category}-positive-findings`).selectedOptions).map(option => option.value);
+    const negativeFindings = Array.from(document.getElementById(`${category}-negative-findings`).selectedOptions).map(option => option.value);
+    const comments = document.getElementById(`${category}-comments`).value;
+
+    // Save data to global variable
+    window.myApp.sharedData.ros[category] = {
+        positive: positiveFindings,
+        negative: negativeFindings,
+        comments: comments
+    };
+
+    const currentSaved = document.getElementById(`${category}-current-saved`);
+    const confirmSaved = document.getElementById(`${category}-confirm-submission`);
+    currentSaved.innerHTML = `${getSavedROS(category)}`
+    confirmSaved.innerText = `Saved ${category} Symptoms!`
+}
+
+function savePhysicalExamCategory(system) {
+    // Get the selected positive findings
+    const positiveFindings = Array.from(document.getElementById(`${system}-positive-findings`).selectedOptions).map(option => option.value);
+
+    // Get the selected negative findings
+    const negativeFindings = Array.from(document.getElementById(`${system}-negative-findings`).selectedOptions).map(option => option.value);
+
+    // Get the additional comments
+    const comments = document.getElementById(`${system}-comments`).value;
+
+    // Save the data to the sharedData object
+    window.myApp.sharedData.physexam[system] = {
+        positive: positiveFindings,
+        negative: negativeFindings,
+        comments: comments,
+    };
+
+    // Display confirmation message
+    const currentSaved = document.getElementById(`${system}-current-saved`);
+    const confirmSaved = document.getElementById(`${system}-confirm-submission`);
+    currentSaved.innerHTML = `${getSavedPhysExamFindings(system)}`
+    confirmSaved.innerText = `Saved ${system} Physical Exam!`
+}
+
+
 function submitPhysicalExamForm() {
     // Collect and process data from the form
     const organSystems = Object.keys(window.myApp.sharedData.physexam);
@@ -211,6 +254,7 @@ function submitPhysicalExamForm() {
     const writing_area = document.getElementById('encounter-input');
     writing_area.innerHTML += `<p style="text-align: left; margin-top: 0.5em">Physical Exam Submitted!</p>`;
 }
+
 
 
 // Generate functions
@@ -364,7 +408,7 @@ function generateROS() {
 
     return `
         <!-- ROS Form -->
-        <div id="encounter-input" style="text-align: left;">
+        <div id="encounter-input" style="text-align: left; margin-top: .5em">
             <div class="dropdown" data-bs-theme="dark">
                 <button class="btn btn-light dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Select ROS Category
@@ -388,11 +432,23 @@ function selectROSCategory(category) {
     const rosCollapse = document.getElementById('rosCollapse');
     rosCollapse.innerHTML = '';
     rosCollapse.innerHTML = `
-        <div class="collapse show" id="\${category}-ros-collapse">
+        <div class="collapse show" id="${category}-ros-collapse">
             <div class="card card-body">
                 ${generateROSCategory(category)}
             </div>
         </div>
+    `;
+}
+
+// Function to get the currently saved ROS for the category
+function getSavedROS(category) {
+    const savedROS = window.myApp.sharedData.ros[category] || { positive: [], negative: [], comments: '' };
+
+    return `
+        <strong>Currently Saved:</strong>
+        <div><b><span style="color: #009900">Positive</span> Findings:</b> ${savedROS.positive.join(', ')}</div>
+        <div><b><span style="color: #FF0000">Negative</span> Findings:</b> ${savedROS.negative.join(', ')}</div>
+        <div><b>Additional Comments:</b> ${savedROS.comments}</div>
     `;
 }
 
@@ -415,20 +471,27 @@ function generateROSCategory(category) {
 
     return `
         <div class="form-group">
-            <label for="${category}-positive-findings">Positive Findings (${capitalizeFirstLetter(category)})</label>
+            <label for="${category}-positive-findings">${capitalizeFirstLetter(category)} <span style="color: #009900">Positive</span> Findings</label>
             <select id="${category}-positive-findings" class="form-control multiselect" multiple="multiple">
                 ${generateMultiselectOptions(rosFindings[category])}
             </select>
         </div>
         <div class="form-group">
-            <label for="${category}-negative-findings">Negative Findings (${capitalizeFirstLetter(category)})</label>
+            <label for="${category}-negative-findings">${capitalizeFirstLetter(category)} <span style="color: #FF0000">Negative</span> Findings</label>
             <select id="${category}-negative-findings" class="form-control multiselect" multiple="multiple">
                 ${generateMultiselectOptions(rosFindings[category])}
             </select>
         </div>
         <div class="form-group">
-            <label for="${category}-comments">Additional Comments (${capitalizeFirstLetter(category)})</label>
+            <label for="${category}-comments">${capitalizeFirstLetter(category)} Additional Comments</label>
             <textarea id="${category}-comments" class="form-control" placeholder="Enter additional comments"></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-dark" onclick="saveROSCategory('${category}')">Save</button>
+            <div id="${category}-confirm-submission"></div>
+        </div>
+        <div id="${category}-current-saved">
+            ${getSavedROS(category)}
         </div>
     `;
 }
@@ -465,15 +528,28 @@ function generatePhysicalExamForm() {
             </button>
           </h2>
           <div id="${system}-collapse" class="accordion-collapse collapse" aria-labelledby="${system}-heading" data-bs-parent="#physexamAccordion">
-            <div class="accordion-body">
+            <div class="accordion-body" style="text-align: left">
               ${generatePhysicalExamOrganSystem(system)}
             </div>
           </div>
         </div>
       `).join('')}
     </div>
-    <button style="margin-top:1em" onclick="submitPhysicalExamForm()" class="btn btn-dark">Submit</button>
   `;
+}
+
+// Function to get the currently saved findings for the system
+function getSavedPhysExamFindings(system) {
+    const savedPositive = window.myApp.sharedData.physexam[system]?.positive || [];
+    const savedNegative = window.myApp.sharedData.physexam[system]?.negative || [];
+    const savedComments = window.myApp.sharedData.physexam[system]?.comments || '';
+    
+    return `
+        <strong>Saved Findings:</strong>
+        <div>Positive Findings: ${savedPositive.join(', ')}</div>
+        <div>Negative Findings: ${savedNegative.join(', ')}</div>
+        <div>Additional Comments: ${savedComments}</div>
+    `;
 }
 
 function generatePhysicalExamOrganSystem(system) {
@@ -489,16 +565,16 @@ function generatePhysicalExamOrganSystem(system) {
       
       // Add more organ systems and findings as needed
     };
-  
+    
     return `
       <div class="form-group">
-        <label for="${system}-positive-findings">Positive Findings</label>
+        <label for="${system}-positive-findings"><span style="color: #009900">Positive</span> Findings</label>
         <select id="${system}-positive-findings" class="form-control multiselect" multiple="multiple">
             ${generateMultiselectOptions(findings[system])}
         </select>
       </div>
       <div class="form-group">
-        <label for="${system}-negative-findings">Negative Findings</label>
+        <label for="${system}-negative-findings"><span style="color: #FF0000">Negative</span> Findings</label>
         <select id="${system}-negative-findings" class="form-control multiselect" multiple="multiple">
             ${generateMultiselectOptions(findings[system])}
         </select>
@@ -507,8 +583,16 @@ function generatePhysicalExamOrganSystem(system) {
         <label for="${system}-comments">Additional Comments</label>
         <textarea id="${system}-comments" class="form-control" placeholder="Enter additional comments"></textarea>
       </div>
+      <div class="form-group" style="text-align: left">
+        <button class="btn btn-dark" onclick="savePhysicalExamCategory('${system}')">Save</button>
+        <div id="${system}-confirm-submission"></div>
+      </div>
+      <div class="form-group" id="${system}-current-saved" style="text-align: left">
+        ${getSavedPhysExamFindings(system)}
+      </div>
     `;
 }
+
 
 function generateMultiselectOptions(options) {
     return options.map(option => `<option value="${option}">${option}</option>`).join('');
