@@ -56,8 +56,6 @@
     </p>
   </div>
 
-
-
   <!-- TRIAGE TAB -->
   <div class="tab-content triage-tab" id="Triage">
 
@@ -494,7 +492,7 @@
   <div class="tab-content" id="Medications">
     <h2>Medications</h2>
     <p>
-      Users will select the medications to dispense here.
+      Users will select the medications to dispense here. Search for the medication, click it, and save at the bottom. To unselect a medication, search/click it again under the formulary column and click Save.
     </p>
     <div class="medication-container">
       <div class="medication-box">
@@ -518,6 +516,9 @@
           .selectable-list {
               list-style-type: none;
               padding: 0;
+              overflow-y: auto;
+              width: 400px;
+              height: 300px;
           }
   
           .bold {
@@ -529,7 +530,7 @@
       
       <div class="medication-box">
         <h3>Drug Information</h3>
-        <textarea id="medicationInfo" rows="4" cols="50" readonly></textarea>
+        <textarea id="medicationInfo" rows="8" cols="50" readonly></textarea>
       </div>
 
       <div class="medication-box">
