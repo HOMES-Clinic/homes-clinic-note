@@ -11,7 +11,8 @@
 }
 
 .triage-tab {
-  max-width: 1500px;
+  max-width: 1360px;
+  margin-top: 30px;
 }
 
 
@@ -216,11 +217,19 @@
 .add-triage-button {
   background-color: green;
   color: white;
+  border: 1px solid black !important;
   border: none;
   font-size: 15px;
   cursor: pointer;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 4px 40px;
+}
+
+.delete-triage-button {
+  background-color: rgb(151, 0, 0);
+  color: white;
+  border: 1px solid black !important;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .strikethrough {
