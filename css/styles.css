@@ -137,7 +137,7 @@ body {
   background-color: #000000;
 }
 
-/* CSS styles for ED DIRECTIONS Tab */
+/* CSS styles for Forms and ED DIRECTIONS Tab */
 .directions-options {
   display: flex;
   flex-wrap: wrap;
@@ -158,6 +158,11 @@ body {
 
 .directions-button:hover {
   background-color: #333333;
+}
+
+.directions-link {
+  color: white;
+  text-decoration: none;
 }
 
 .tab-content h2 {

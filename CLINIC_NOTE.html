@@ -44,7 +44,7 @@
     <button class="tab-button" onclick="openTab('Referrals')">Referrals</button>
     <button class="tab-button" onclick="openTab('AfterVisitSummary')">After Visit Summary</button>
     <button class="tab-button" onclick="openTab('ED_Dir')">ED Directions</button>
-    <button class="tab-button" onclick="openTab('PtSum')">Patient Summary</button>
+    <!--<button class="tab-button" onclick="openTab('PtSum')">Patient Summary</button>-->
     <button class="tab-button" onclick="openTab('GenNote')" style="margin-right:22px;">Generate Note</button>  
   </div>
 
@@ -52,7 +52,22 @@
   <div class="tab-content" id="Overview">
     <h2>Overview</h2>
     <p>
-      Insert Overview of HOMES Here
+      Phone number for Ronald Marshall, manager of The Beacon: 713-591-5404.
+    </p>
+    <p style="margin: 0;">
+      Wifi:
+      <ul>
+        <li>Wifi Login: BEACON ADMIN_RE</li>
+        <li>Wifi Password: beaconadmin</li>
+        <li>Computer Login: hhh</li>
+        <li>Computer Password: hhh001</li>
+      </ul>
+    </p>
+    <p>
+      Masterword provides phone translation for HHH/HOMES at 1-866-716-4999. If PIN is requested, use 29841760. If you need an ASL interpreter, call Susan Broussard at 713-286-6124.
+    </p>
+    <p>
+      Restrooms: Hold 2 and 4 simultaneously > hit 3 > hit enter.
     </p>
   </div>
 
@@ -196,10 +211,14 @@
   <!-- FORMS TAB -->
   <div class="tab-content" id="Forms">
     <h2>Forms</h2>
-    <p>
-      These include consent forms that the patients need to fill out before they can be seen by the volunteers at
-      HOMES.
-    </p>
+    <div class="directions-options">
+      <button class="directions-button" onclick="openPdf('pdf_forms/New Volunteer - HHH Confidentiality Form.pdf', 'Forms')">New Volunteer Confidentiality Form</button>
+      <button class="directions-button" onclick="openPdf('pdf_forms/New Volunteer - Publicity Media Release Form.pdf', 'Forms')">New Volunteer Media Release Form</button>
+      <button class="directions-button" onclick="openPdf('pdf_forms/HOMES Patient Packet (Nov 25).pdf', 'Forms')">HOMES Patient Packet</button>
+      <button class="directions-button" onclick="openPdf('pdf_forms/Pharmacy - HOMES Clinic Pharmacy Student Data Form.pdf', 'Forms')">Pharmacy Student Data Form</button>
+      <button class="directions-button"><a class="directions-link" target="_blank" href="https://drive.google.com/drive/folders/1Mbpt-HPrUwYA6FiwM0pk_1ziELKzTbvR">Health Advocate Cards</a></button>
+    </div>
+    <iframe id="pdfFrameForms" width="70%" height="90%" style="display: none;"></iframe>
   </div>
 
   <!-- ENCOUNTER TAB -->
@@ -551,37 +570,48 @@
     <iframe id="iframes" src="referral.html"></iframe>
   </div>
 
+
+
   <!-- AFTER VISIT SUMMARY TAB -->
   <div class="tab-content" id="AfterVisitSummary" style="margin-top:10px; padding-top:10px">
       <iframe id="iframes" src="after_visit_sum.html"></iframe>
   </div>
 
+
+
   <!-- ED DIRECTIONS TAB -->
   <div class="tab-content" id="ED_Dir">
     <h2>ED Directions</h2>
     <div class="directions-options">
-      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_ben_taub.pdf')">Directions to Ben Taub ER</button>
-      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_caroline_clinic_transit.pdf')">Directions to Caroline Street Clinic (transit)</button>
-      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_caroline_clinic_walking.pdf')">Directions to Caroline Street Clinic (walking)</button>
-      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_memorial_hermann.pdf')">Directions to Memorial Hermann ER</button>
+      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_ben_taub.pdf', 'ED_Directions')">Directions to Ben Taub ER</button>
+      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_caroline_clinic_transit.pdf', 'ED_Directions')">Directions to Caroline Street Clinic (transit)</button>
+      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_caroline_clinic_walking.pdf', 'ED_Directions')">Directions to Caroline Street Clinic (walking)</button>
+      <button class="directions-button" onclick="openPdf('pdf_directions/directions_to_memorial_hermann.pdf', 'ED_Directions')">Directions to Memorial Hermann ER</button>
     </div>
-    <iframe id="pdfFrame" width="90%" height="90%" style="display: none;"></iframe>
+    <iframe id="pdfFrameED" width="70%" height="90%" style="display: none;"></iframe>
   </div>
 
+
+
   <!-- PATIENT SUMMARY TAB -->
+  <!--
   <div class="tab-content" id="PtSum">
     <h2>Patient Summary</h2>
     <p>
       A summary of the patient will be viewable here.
     </p>
   </div>
+  -->
+
+
 
   <!-- GENERATE NOTE TAB -->
 <div class="tab-content" id="GenNote">
   <button class="btn btn-dark" style="margin-top:1em" onclick="printNote()">Print</button>
   <iframe id="iframes"></iframe>
-
 </div>
+
+
 
 </body>
 

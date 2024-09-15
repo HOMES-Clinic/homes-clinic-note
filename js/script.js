@@ -67,8 +67,16 @@ function printIframeContents() {
 
 // ED DIRECTIONS TAB -------------------------------------------------------------
 // -----------------------------------------------------------------------------
-function openPdf(pdfUrl) {
-  var pdfFrame = document.getElementById("pdfFrame");
-  pdfFrame.src = pdfUrl;
-  pdfFrame.style.display = "block";
+function openPdf(pdfUrl, tabId) {
+  var pdfFrame;
+  if (tabId === "Forms") {
+    pdfFrame = document.getElementById("pdfFrameForms");
+  } else if (tabId === "ED_Directions") {
+    pdfFrame = document.getElementById("pdfFrameED");
+  }
+  
+  if (pdfFrame) {
+    pdfFrame.src = pdfUrl;
+    pdfFrame.style.display = "block";
+  }
 }
