@@ -25,29 +25,18 @@
                         <th>Medication</th>
                         <th>Dose</th>
                         <th>Frequency</th>
+                        <th>Quantity</th>
                         <th>Reason</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                    </tr>
-                    <tr>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                        <td contenteditable="true"></td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
+            <script src="js/medication_table_script.js"></script>
         </div>
 
         <div class="button-container">
-            <button class="add-medication-button print-button" onclick="addMedicationRow()">Add Medication</button>
-            <button class="remove-medication-button print-button" onclick="removeMedicationRow()">Remove Medication</button>
+            <button class="add-medication-button print-button" onclick="addMedicationRow()">Add New Medication</button>
+            <button class="remove-medication-button print-button" onclick="removeMedicationRow()">Remove Last Medication</button>
         </div>
 
         <h2 class="preventative-summary-heading"><u>Preventative Health Summary</u></h2>

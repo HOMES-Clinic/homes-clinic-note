@@ -5,7 +5,7 @@ function printSummary() {
 function addMedicationRow() {
     var table = document.getElementById("medication-table");
     var row = table.insertRow(-1);
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 5; i++) {
         var cell = row.insertCell(i);
         cell.contentEditable = "true";
     }
