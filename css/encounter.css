@@ -9,7 +9,7 @@
 #encounter_workarea {
     height: 100%;
     flex-direction: row;
-    margin-top: 5%;
+    padding-top: 45px;
 }
 
 #sidebar {

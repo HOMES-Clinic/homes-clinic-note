@@ -1,0 +1,119 @@
+.encounter-content {
+    padding: 0;
+}
+
+.encounter-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px 20px 10px 20px; 
+    background-color: #f0f0f0;
+    position: fixed;
+    top: 55px;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.timer {
+    font-size: 20px; 
+    margin-right: 20px;
+}
+
+.stopTimer {
+    font: bold;
+    font-size: 20px;
+    color: white;
+    background-color: #03a100;
+    border: none;
+    border-radius: 5px;
+    padding: 3px 15px;
+    cursor: pointer;
+}
+
+.encounter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    padding: 30px 15% 0 15%;
+}
+
+
+
+/* Sidebar */
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+    position: fixed;
+    top: 150px;
+    left: 15%;
+    width: 200px;
+    height: calc(100vh - 200px);
+    overflow-y: auto; 
+}
+
+.sidebar a {
+    background-color: rgb(118, 113, 113);
+    text-align: center;
+    text-decoration: none;
+    color: #FFFFFF;
+    border: none;
+    padding: 15px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.sidebar a:hover {
+    background-color: black;
+    transition: background-color 0.3s;
+}
+
+
+
+/* Encounter Input */
+
+.encounter-input {
+    margin-left: 230px;
+    flex: 1;
+}
+
+.encounter-input section {
+    padding-bottom: 30px;
+    padding-top: 30px;
+    border-bottom: rgba(118, 113, 113, 0.5) 1px solid;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

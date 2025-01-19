@@ -1,8 +1,3 @@
-function startTimer() {
-    window.myApp.sharedData.started_encounter = true;
-    window.myApp.sharedData.encounter_start_time = Date.now()
-}
-
 function saveContent(ID, text) {
     if (window.myApp.sharedData.hasOwnProperty(ID)) {
         // Update the corresponding property
@@ -30,6 +25,7 @@ function logNote() {
 
 }
 
+
 function switchSection(selection) {
 
     // Save whatever is currently written
@@ -39,73 +35,62 @@ function switchSection(selection) {
     var writing_area = document.getElementById('encounter-input');
     var help_col = document.getElementById('encounter-help-col')
     var rows = 27
-    if (window.myApp.sharedData.started_encounter){
-        help_col.innerHTML = switchHelpCol(selection)
-        switch (selection) {
-            case 'admin':
-                writing_area.innerHTML = generateAdminPatientForm();
-                break;
-            case 'vitals':
-                writing_area.innerHTML = generateVitalsForm();
-                break;
-            case 'hpi':
-                let hpi_placeholder = 'Write History of Present Illness (HPI) here...'
-                writing_area.innerHTML = `<textarea id="hpi" class="form-control" rows="${Math.floor(rows/4)}" placeholder="${hpi_placeholder}">${window.myApp.sharedData.hpi}</textarea>
-                ${generateROS()}`
-                break;
-            case 'pmhx':
-                let pmhx_rows = 13
-                let pmhx_placeholder = `Write Past Medical History (PMHx) here...\n\nCommon conditions at HOMES include:\n - hypertension\n - diabetes\n - hypercholesterolemia`;
-                let pshx_placeholder = `Write Past Surgical History (PSHx) here...\n1. Procedure (Date)`;
-                writing_area.innerHTML = 
-                    `<textarea id="pmhx" class="form-control" rows="${pmhx_rows}" style="margin-bottom: 1%" placeholder="${pmhx_placeholder}">${window.myApp.sharedData.pmhx}</textarea>
-                    <textarea id="pshx" class="form-control" rows="${rows-pmhx_rows}" style="margin-top: 1%"placeholder="${pshx_placeholder}">${window.myApp.sharedData.pshx}</textarea>`;
-                break;
-            case 'medications':
-                let med_rows = 19
-                let meds_comment = `Write medications here...\n\nRecommended Format:\n1. Medication 1 (Dose, Route) - taken for {condition}, [Does/Does not] need refill (last taken {time})\n2. Medication 2 (Dose, Route) - taken for {condition}, [Does/Does not] need refill (last taken {time})`
-                let allergies_comment = `Write allergies here...\n\nPlease note what happens if exposed to allergen`
-                writing_area.innerHTML = 
+    help_col.innerHTML = switchHelpCol(selection)
+    switch (selection) {
+        case 'admin':
+            writing_area.innerHTML = generateAdminPatientForm();
+            break;
+        case 'vitals':
+            writing_area.innerHTML = generateVitalsForm();
+            break;
+        case 'hpi':
+            let hpi_placeholder = 'Write History of Present Illness (HPI) here...'
+            writing_area.innerHTML = `<textarea id="hpi" class="form-control" rows="${Math.floor(rows/4)}" placeholder="${hpi_placeholder}">${window.myApp.sharedData.hpi}</textarea>
+            ${generateROS()}`
+            break;
+        case 'pmhx':
+            let pmhx_rows = 13
+            let pmhx_placeholder = `Write Past Medical History (PMHx) here...\n\nCommon conditions at HOMES include:\n - hypertension\n - diabetes\n - hypercholesterolemia`;
+            let pshx_placeholder = `Write Past Surgical History (PSHx) here...\n1. Procedure (Date)`;
+            writing_area.innerHTML = 
+                `<textarea id="pmhx" class="form-control" rows="${pmhx_rows}" style="margin-bottom: 1%" placeholder="${pmhx_placeholder}">${window.myApp.sharedData.pmhx}</textarea>
+                <textarea id="pshx" class="form-control" rows="${rows-pmhx_rows}" style="margin-top: 1%"placeholder="${pshx_placeholder}">${window.myApp.sharedData.pshx}</textarea>`;
+            break;
+        case 'medications':
+            let med_rows = 19
+            let meds_comment = `Write medications here...\n\nRecommended Format:\n1. Medication 1 (Dose, Route) - taken for {condition}, [Does/Does not] need refill (last taken {time})\n2. Medication 2 (Dose, Route) - taken for {condition}, [Does/Does not] need refill (last taken {time})`
+            let allergies_comment = `Write allergies here...\n\nPlease note what happens if exposed to allergen`
+            writing_area.innerHTML = 
                 `<textarea id="pastmeds" class="form-control" rows="${med_rows}" style="margin-bottom: 1%" placeholder="${meds_comment}">${window.myApp.sharedData.pastmeds}</textarea>
                 <textarea id="allergies" class="form-control" rows="${rows-med_rows}" style="margin-top: 1%"placeholder="${allergies_comment}">${window.myApp.sharedData.allergies}</textarea>`;
-                break;
-            case 'obgyn':
-                obgyn_placeholder = 'Write ObGyn Hx here...';
-                writing_area.innerHTML = `<textarea id="obgynhx" class="form-control" rows="${rows}" placeholder="${obgyn_placeholder}">${window.myApp.sharedData.obgynhx}</textarea>`
-                break;
-            case 'famhx':
-                family_placeholder = 'Write Family Hx here...\nFamily Member (living/passed - age/age passed): disease'
-                writing_area.innerHTML = `<textarea id="famhx" class="form-control" rows="${rows}" placeholder="${family_placeholder}">${window.myApp.sharedData.famhx}</textarea>`
-                break;
-            case 'sochx':
-                social_placeholder = 'Write Social Hx here...'
-                writing_area.innerHTML = `<textarea id="sochx" class="form-control" rows="${rows}" placeholder="${social_placeholder}">${window.myApp.sharedData.sochx}</textarea>`
-                break;
-            case 'physexam':
-                writing_area.innerHTML = generatePhysicalExamForm();
-                break;
-            case 'aandp':
-                assessment_rows = 3
-                assessment_placeholder = 'Write Overall Assessment here...';
-                plan_placeholder = 'Write a Problem-based plan here.\nPlease include contingencies and patient disposition...';
-                writing_area.innerHTML = 
+            break;
+        case 'obgyn':
+            obgyn_placeholder = 'Write ObGyn Hx here...';
+            writing_area.innerHTML = `<textarea id="obgynhx" class="form-control" rows="${rows}" placeholder="${obgyn_placeholder}">${window.myApp.sharedData.obgynhx}</textarea>`
+            break;
+        case 'famhx':
+            family_placeholder = 'Write Family Hx here...\nFamily Member (living/passed - age/age passed): disease'
+            writing_area.innerHTML = `<textarea id="famhx" class="form-control" rows="${rows}" placeholder="${family_placeholder}">${window.myApp.sharedData.famhx}</textarea>`
+            break;
+        case 'sochx':
+            social_placeholder = 'Write Social Hx here...'
+            writing_area.innerHTML = `<textarea id="sochx" class="form-control" rows="${rows}" placeholder="${social_placeholder}">${window.myApp.sharedData.sochx}</textarea>`
+            break;
+        case 'physexam':
+            writing_area.innerHTML = generatePhysicalExamForm();
+            break;
+        case 'aandp':
+            assessment_rows = 3
+            assessment_placeholder = 'Write Overall Assessment here...';
+            plan_placeholder = 'Write a Problem-based plan here.\nPlease include contingencies and patient disposition...';
+            writing_area.innerHTML = 
                 `<textarea id="assessment" class="form-control" rows="${assessment_rows}" style="margin-bottom: 1%" placeholder="${assessment_placeholder}">${window.myApp.sharedData.assessment}</textarea>
                 <textarea id="plan" class="form-control" rows="${rows-assessment_rows}" style="margin-top: 1%"placeholder="${plan_placeholder}">${window.myApp.sharedData.plan}</textarea>`;
-                break;
-            default:
-                writing_area.innerHTML = '';
-                break;
+            break;
+        default:
+            writing_area.innerHTML = '';
+            break;
         }
-    } else if (selection=='admin'){
-        writing_area.innerHTML = generateAdminPatientForm();
-    }
-    else if (selection=='vitals'){
-        writing_area.innerHTML = generateVitalsForm();
-    }
-    else {
-        alert('Please start the encounter first.');
-    }
-
 }
 
 function addBpReading() {

@@ -165,7 +165,7 @@
 
 .triage-grid, .triage-input-grid {
   display: grid;
-  grid-template-columns: 205px 140px 315px 125px 275px 110px;
+  grid-template-columns: 205px 140px 125px 310px 310px 110px;
   column-gap: 10px;
   row-gap: 10px;
   align-items: center;
@@ -182,7 +182,7 @@
   margin-bottom: 8px;
 }
 
-.name-input, .dob-input, .cc-input, .temp-input {
+.name-input, .dob-input, .temp-input, .loc-input, .cc-input {
   width: 100%;
   font-size: 15px;
   padding: 6px;
@@ -202,12 +202,16 @@
   width: 125px;
 }
 
-.input-div-cc {
+.input-div-temp {
+  width: 110px;
+}
+
+.input-div-location {
   width: 300px;
 }
 
-.input-div-temp {
-  width: 110px;
+.input-div-cc {
+  width: 300px;
 }
 
 .input-div-hhh {

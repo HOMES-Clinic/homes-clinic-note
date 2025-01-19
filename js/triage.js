@@ -37,12 +37,13 @@ function renderTriageList() {
   let triageListHTML = '';
 
   triageList.forEach((triageObject, index) => {
-    const { name, DOB, cc, temp, hhh } = triageObject;
+    const { name, DOB, temp, loc, cc, hhh } = triageObject;
     const html = `
       <div class="${triageObject.strikethrough ? 'strikethrough' : ''}">${name}</div>
       <div class="${triageObject.strikethrough ? 'strikethrough' : ''}">${DOB}</div>
-      <div class="${triageObject.strikethrough ? 'strikethrough' : ''}">${cc}</div>
       <div class="${triageObject.strikethrough ? 'strikethrough' : ''}">${temp}</div>
+      <div class="${triageObject.strikethrough ? 'strikethrough' : ''}">${loc}</div>
+      <div class="${triageObject.strikethrough ? 'strikethrough' : ''}">${cc}</div>
       <div class="${triageObject.strikethrough ? 'strikethrough' : ''}">${hhh}</div> 
       <button class="delete-triage-button js-delete-triage-button">Delete</button> 
     `;
@@ -82,13 +83,17 @@ function addTriage() {
   const dobInputElement = document.querySelector('.js-dob-input');
   const DOB = dobInputElement.value;
 
-  // Chief Concern
-  const ccInputElement = document.querySelector('.js-cc-input');
-  const cc = ccInputElement.value;
-
   // Temperature 
   const tempInputElement = document.querySelector('.js-temp-input');
   const temp = tempInputElement.value;
+
+  // Location
+  const locInputElement = document.querySelector('.js-loc-input');
+  const loc = locInputElement.value;
+
+// Chief Concern
+  const ccInputElement = document.querySelector('.js-cc-input');
+  const cc = ccInputElement.value;
 
   // New to HHH or Harris Health
   const hhhInputElements = document.querySelectorAll('.js-hhh-input');
@@ -101,14 +106,15 @@ function addTriage() {
   })
 
   // Adding new patients into the triageList
-  triageList.push({ name, DOB, cc, temp, hhh });
+  triageList.push({ name, DOB, temp, loc, cc, hhh });
   console.log(triageList);
 
   // Resetting values
   nameInputElement.value = '';
   dobInputElement.value = '';
-  ccInputElement.value = '';
   tempInputElement.value = '';
+  locInputElement.value = '';
+  ccInputElement.value = '';
   hhhInputElements.value = '';
 
   renderTriageList();

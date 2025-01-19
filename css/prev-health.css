@@ -1,3 +1,5 @@
+/* Old Table */
+
 .prev-health-table {
     border: 1px solid;
     width: 98%;
@@ -5,4 +7,58 @@
 
 th, td {
     border: 1px solid;
+}
+
+
+
+/* New Format testing */
+
+.checklist-item {
+    border-bottom: 1px solid #adadad;
+    padding: 15px;
+    background-color: rgb(233, 233, 233);
+}
+
+.checklist-item:hover {
+    background-color: white;
+    transition: background-color 0.3s;
+}
+
+.checklist-header {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between checkbox and label */
+    cursor: pointer;
+}
+
+.checklist-header input[type="checkbox"] {
+    transform: scale(1.5);
+}
+
+.checklist-header label {
+    font-weight: bold;
+    flex-grow: 1; /* Allows the label to take up the remaining space */
+}
+
+.checklist-dropdown-icon {
+    transition: transform 0.2s ease-out;
+}
+
+.checklist-dropdown-icon.open {
+    transform: rotate(180deg);
+}
+
+.checklist-patients, .checklist-frequency {
+    padding-left: 28px;
+}
+
+.checklist-details, .checklist-follow-up {
+    margin-top: 10px;
+    padding-left: 28px;
+    padding-right: 28px;
+    display: none; /* Initially hidden */
+}
+
+.checklist-details p, .checklist-follow-up p {
+    margin-bottom: 5px;
 }
